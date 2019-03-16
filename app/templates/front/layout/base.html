@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="{{setting.locale}}">
+<head>
+<title>{{pagemeta.meta_title}}</title>
+
+  <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="{{ setting.url }}images/icons/favicon.ico">
+        <link rel="apple-touch-icon" href="{{ setting.url }}images/icons/icon57.png" sizes="57x57">
+        <link rel="apple-touch-icon" href="{{ setting.url }}images/icons/icon72.png" sizes="72x72">
+        <link rel="apple-touch-icon" href="{{ setting.url }}images/icons/icon76.png" sizes="76x76">
+        <link rel="apple-touch-icon" href="{{ setting.url }}images/icons/icon114.png" sizes="114x114">
+        <link rel="apple-touch-icon" href="{{ setting.url }}images/icons/icon120.png" sizes="120x120">
+        <link rel="apple-touch-icon" href="{{ setting.url }}images/icons/icon144.png" sizes="144x144">
+        <link rel="apple-touch-icon" href="{{ setting.url }}images/icons/icon152.png" sizes="152x152">
+    <!-- END Icons -->
+
+<meta name="description" content="{{pagemeta.meta_description}}" />
+<meta charset="utf-8">
+<meta content-language="content-language" content="{{setting.locale}}">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="author" content="scolaro-salvatore" />
+<meta name="copyright" content="www.minicrociereisoleeolie.it" />
+<meta name="ROBOTS" content="INDEX,FOLLOW" />
+<meta name="revisit-after" content="7 days" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{pagemeta.meta_title}}" />
+<meta property="og:description" content="{{pagemeta.meta_description}}" />
+{% block head %}
+  <!-- Stylesheets -->
+
+        <link rel="stylesheet" href="{{ setting.public_root }}public/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ setting.public_root  }}public/dist/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ setting.public_root  }}public/dist/css/frontcss.css">
+        <link rel="stylesheet" href="{{ setting.url }}public/dist/css/shortcode.min.css">
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="http://localhost/altervista/public/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{{ setting.public_root }}public/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    <!--<script src="http://localhost/altervista/public/js/jquery.min.js"></script>-->
+    <script src="{{ setting.public_root }}public/dist/js/bootstrap.min.js"></script>
+    <!--<script src="{{ setting.url }}dist/js/admin.js"></script>-->
+    <!--<script src="{{ setting.url }}dist/js/main.js"></script>-->
+      <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+      <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+      <!--INIZIO CODICE GOOGLE ANALITYCS-->
+
+      <!--FINE CODICE GOOGLE ANALITYCS-->
+{% endblock %}
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div id="wrapper">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{setting.url}}">MINI CROCIERE</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li id="home" class="active"><a href="{{ setting.url }}home/index">{{page.home}}<span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ setting.url }}information/services">{{page.service}}</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{page.category}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          {% for itemMenu in itemsMenu %}
+             {% for key, value in itemMenu %}
+                <li class="dopdown-submenu">
+                  <a tabindex="-1" href="{{ setting.url }}category/index/{{value.id}}">{{value.name|upper}}</a>
+                {% if value is iterable %}
+                <ul class="dropdown-menu">
+                       {% for subkey, subvalue in value %}
+                     <li><a href="{{ setting.url }}category/index/{{subvalue.id}}">{{subvalue.name|upper}}</a></li>
+                       {% endfor %}
+                </ul>
+              {% else %}
+                <li><a href="{{ setting.url }}mini/index">{{value.name|upper}}</a></li>
+              {% endif %}
+                </li>
+            {% endfor %}
+          {% endfor %}
+
+          </ul>
+        </li>
+        <li id="products"><a href="{{ setting.url }}shop/index">{{page.shop}}</a></li>
+        <li id="shop"><a href="{{ setting.url }}shop/shop">{{page.cart}}</a></li>
+        <li><a href="{{ setting.url }}contact/index">{{page.contact}}</a></li>
+        <li class="dropdown">
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#"><img width="16" height="16" alt="{{ setting.language.code }}"  src="{{ setting.url }}public/images/flags/{{setting.language.image}}-flag.png" />&nbsp; <b class="caret"></b></a>
+          {% if setting.languages %}
+          <ul class="dropdown-menu" id="list-languages">
+            {% for langKey,langValue in setting.languages %}
+              {% if   langKey != setting.locale %}
+
+                  <li><a data-toggle="dropdown" class="dropdown-toggle" href="#"><img width="16" height="16" alt="{{ langValue.name }}"  value = "{{ langValue.code }}" src="{{ setting.url }}public/images/flags/{{langValue.image}}-flag.png" /><span>{{langValue.name}}</span></a></li>
+
+              {% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" action="{{ setting.url }}products/searchProducts" method="POST">
+        <div class="form-group">
+          <input type="text" class="form-control" name="searchText" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello,<strong>{% if userLogged.name is defined %}{{ userLogged.name }}{% endif %}</strong> <i class="fa fa-user fa-fw"></i><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ setting.url }}login/index">Login</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{ setting.url }}login/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img class="first-slide" src="{{ setting.url }}assets/img/carousel/img1_it.png" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>MINI CROCIERA LIPARI & VULCANO.</h1>
+              <p>SI EFFETTUA TUTTI I GIORNI CON PARTENZA DAL PORTO DI MILAZZO</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">LIPARI & VULCANO</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="second-slide" src="{{ setting.url }}assets/img/carousel/img2_it.png" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>MINI CROCIERA PANAREA & STROMBOLI BY NIGHT</h1>
+              <p>SI EFFETTUA IL MARTEDI', GIOVEDI' E DOMENICA</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">PANAREA & STROMBOLI</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="third-slide" src="{{ setting.url }}assets/img/carousel/img3_it.png" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>ESCURSIONI DA LIPARI E VULCANO</h1>
+              <p>SI EFFETTUANO TUTTI I GIORNI</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">ESCURSIONI</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+<footer id="footer" class="panel-footer clearfix">
+  <div id="footer_1" class="row">
+    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+    </div>
+      <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        <div style="padding:2%;margin:2%;">
+        <h4><span class="droptitle" style="display:block;text-align:center;text-transform:uppercase;">Info</span></h4>
+          <ul class="list-group" style="color:#337ab7;">
+            <li class="list-group-item justify-content-between">
+              tour Operator:
+              <span class="badge_mod">CLARISSA VIAGGI</span>
+            </li>
+            <li class="list-group-item justify-content-between">
+              Indirizzo:
+              <span class="badge_mod">Via Luigi Rizzo, 23</span>
+            </li>
+            <li class="list-group-item justify-content-between">
+              Città:
+              <span class="badge_mod">I - 98057 Milazzo (ME)</span>
+            </li>
+            <li class="list-group-item justify-content-between">
+              Tel :
+              <span class="badge_mod">+39 090 9240248</span>
+            </li>
+            <li class="list-group-item justify-content-between">
+              Mob:
+              <span class="badge_mod">+39 331 2456838</span>
+            </li>
+            <li class="list-group-item justify-content-between">
+              Email:
+              <span class="badge_mod">info@clarissaviaggi.it</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+        {% block footerleft %}
+        {% endblock %}
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="pull-right">
+          Developed <i class="fa fa-heart text-danger"></i> by <a href="" target="_blank">Scolaro Salvatore</a>
+        </div>
+        <div class="pull-left">
+          &copy; All rights reserved
+        </div>
+      </div>
+  </div>
+</footer>
+
+   </div>
+  <!-- /#wrapper -->
+
+    <script>
+
+    $(document).ready(function(){
+    var config = {{config|raw}};
+
+    console.log(config);
+/*
+ * Ajax
+ */
+
+var ajax = {
+
+    /**
+     * Default ajax function.
+     *
+     * @param  string   url             URL to send ajax call
+     * @param  mixed    postData        data that will be sent to the server(PHP)
+     * @param  function callback        Callback Function that will be called upon success or failure
+     * @param  string   spinnerBlock    An element where the spinner will be next to it
+     *
+     */
+    send: function(url, postData, callback, spinnerBlock){
+
+        var spinnerEle = null;
+
+        $.ajax({
+            url: config.root + url,
+            type: "POST",
+            data: helpers.appendCsrfToken(postData),
+            dataType: "json",
+            beforeSend: function() {
+
+                // create the spinner element, and add it after the spinnerBlock
+                spinnerEle = $("<i>").addClass("fa fa-spinner fa-3x fa-spin spinner").css("display", "none");
+                $(spinnerBlock).after(spinnerEle);
+
+                // run the spinner
+                ajax.runSpinner(spinnerBlock, spinnerEle);
+            }
+        })
+            .done(function(data) {
+                // stopSpinner(spinnerBlock);
+                callback(data);
+            })
+            .fail(function(jqXHR) {
+                // stopSpinner(spinnerBlock);
+                switch (jqXHR.status){
+                    case 0:
+                        callback(null);
+                    case 302:
+                        helpers.redirectTo(config.root);
+                        break;
+                    default:
+                        helpers.displayErrorPage(jqXHR);
+                }
+            })
+            .always(function() {
+                ajax.stopSpinner(spinnerBlock, spinnerEle);
+            });
+    },
+
+    /**
+     * Ajax call - ONLY for files.
+     *
+     * @param  string   url             URL to send ajax call
+     * @param  object   fileData        data(formData) that will be sent to the server(PHP)
+     * @param  function callback        Callback Function that will be called upon success or failure
+     *
+     */
+    upload: function(url, fileData, callback){
+
+        $.ajax({
+            url: config.root + url,
+            type: "POST",
+            data: helpers.appendCsrfToken(fileData),
+            dataType: "json",
+            beforeSend: function () {
+                // reset the progress bar
+                $(".progress .progress-bar").css("width", "0%").html("0%");
+            },
+            xhr: function() {
+                var myXhr = $.ajaxSettings.xhr();
+                // check if upload property exists
+                if(myXhr.upload){
+                    myXhr.upload.addEventListener('progress', ajax.progressbar, false);
+                    $(".progress").removeClass("display-none");
+                }
+                return myXhr;
+            },
+            contentType: false,
+            cache: false,
+            processData:false
+        })
+            .done(function(data) {
+                callback(data);
+            })
+            .fail(function(jqXHR) {
+                switch (jqXHR.status){
+                    case 0:
+                        callback(null);
+                    case 302:
+                        helpers.redirectTo(config.root);
+                        break;
+                    default:
+                        helpers.displayErrorPage(jqXHR);
+                }
+            })
+            .always(function() {
+                $(".progress").addClass("display-none");
+            });
+    },
+    progressbar: function(e){
+        if(e.lengthComputable){
+            var meter = parseInt((e.loaded/e.total) * 100);
+            $(".progress .progress-bar").css("width", meter+"%").html(meter + "%");
+        }
+    },
+    runSpinner: function(spinnerBlock, spinnerEle){
+
+        if(!helpers.empty(spinnerBlock)) {
+            // var spinner = $(spinnerBlock).nextAll(".spinner:eq(0)");
+            $(spinnerEle).show();
+            $(spinnerBlock).css("opacity","0.6");
+        }
+    },
+    stopSpinner: function(spinnerBlock, spinnerEle){
+        if(!helpers.empty(spinnerBlock) ) {
+            // var spinner = $(spinnerBlock).nextAll(".spinner:eq(0)");
+            $(spinnerEle).remove();
+            $(spinnerBlock).css("opacity","1");
+        }
+    }
+};
+var helpers = {
+
+    /**
+     * append csrf token to data that will be sent in ajax
+     *
+     * @param  mixed  data
+     *
+     */
+    appendCsrfToken: function (data){
+
+        if(typeof (data) === "string"){
+            if(data.length > 0){
+                data = data + "&csrf_token=" + config.csrfToken;
+            }else{
+                data = data + "csrf_token=" + config.csrfToken;
+            }
+        }
+
+        else if(data.constructor.name === "FormData"){
+            data.append("csrf_token", config.csrfToken);
+        }
+
+        else if(typeof(data) === "object"){
+            data.csrf_token = config.csrfToken;
+        }
+
+        return data;
+    },
+
+    /**
+     * replaces the current page with error page returned from ajax
+     *
+     * @param  XMLHttpRequest  jqXHR
+     * @see http://stackoverflow.com/questions/4387688/replace-current-page-with-ajax-content
+     */
+    displayErrorPage: function (jqXHR) {
+        document.open();
+        document.write(jqXHR.responseText);
+        document.close();
+    },
+
+    /**
+     * Extract keys from JavaScript object to be used as variables
+     * @param  object  data
+     */
+    extract: function (data) {
+        for (var key in data) {
+            window[key] = data[key];
+        }
+    },
+
+    /**
+     * Checks if an element is empty(set to null or undefined)
+     *
+     * @param  mixed foo
+     * @return boolean
+     *
+     */
+    empty: function (foo){
+        return (foo === null || typeof(foo) === "undefined")? true: false;
+    },
+
+    /**
+     * extends $().html() in jQuery
+     *
+     * @param   string  target
+     * @param   string  str
+     */
+    html: function (target, str){
+        $(target).html(str);
+    },
+
+    /**
+     * extends $().after() in jQuery
+     *
+     * @param   string  target
+     * @param   string  str
+     */
+    after: function (target, str){
+        $(target).after(str);
+    },
+
+        /**
+         * extends $().after() in jQuery
+         *
+         * @param   string  target
+         * @param   string  str
+         */
+    before: function (target, str){
+        $(target).before(str);
+    },
+    /**
+     * clears all error and success messages
+     *
+     * @param   string  target
+     */
+    clearMessages: function (target){
+
+        if(helpers.empty(target)){
+            $(".error").remove();
+            $(".success").remove();
+        } else{
+            // $(target).next(".error").remove();
+            // $(target).next(".success").remove();
+            $(target).nextAll(".error:eq(0)").remove();
+            $(target).nextAll(".success:eq(0)").remove();
+        }
+    },
+
+    /**
+     * Extend the serialize() function in jQuery.
+     * This function is designed to add extra data(name => value) to the form.
+     *
+     * @param   object  ele     Form element
+     * @param   string  str     String to be appended to the form data.
+     * @return  string          The serialized form data in form of: "name=value&name=value"
+     *
+     */
+    serialize: function (ele, str){
+        if(helpers.empty(str)){
+            return $(ele).serialize();
+        } else {
+            return $(ele).serialize()  + "&" + str;
+        }
+    },
+
+    /**
+     * This function is used to redirect.
+     *
+     * @param string location
+     */
+    redirectTo: function (location){
+        window.location.href = location;
+    },
+
+    /**
+     * encode potential text
+     * All encoding are done and must be done on the server side,
+     * but you can use this function in case it's needed on client.
+     *
+     * @param string  str
+     */
+    encodeHTML: function (str){
+        return $('<div />').text(str).html();
+    },
+
+    /**
+     * validate form file size
+     * It's important to validate file size on client-side to avoid overflow in $_POST & $_FILES
+     *
+     * @param   string form  form element
+     * @param   string id    id of the file input element
+     * @see     app/core/Request/dataSizeOverflow()
+     */
+    validateFileSize: function (fileId){
+
+        var size = document.getElementById(fileId).files[0].size;
+        return size < config.fileSizeOverflow;
+    },
+
+    /**
+     * display error message
+     *
+     * @param  string  targetBlock  The target block where the error or success alerts will be inserted
+     * @param  string  message      error message
+     *
+     */
+    displayError: function (targetBlock, message){
+
+        // 1. clear
+        helpers.clearMessages(targetBlock);
+
+        // 2. display
+        var alert    = $("<div>").addClass("alert alert-danger");
+        var notation = $("<i>").addClass("fa fa-exclamation-circle");
+        alert.append(notation);
+
+        message =  helpers.empty(message)? "Sorry there was a problem": message;
+        alert.append(" " + message);
+
+        var error = $("<div>").addClass("error").html(alert);
+        $(targetBlock).after(error);
+    },
+
+    /**
+     * Validate the data coming from server side(PHP)
+     *
+     * The data coming from PHP should be something like this:
+     *      data = [error = "some html code", success = "some html code", data = "some html code", redirect = "link"];
+     *
+     * @param   object   result        The Data that was sent from the server(PHP)
+     * @param   string   targetBlock    The target block where the error or success alerts(if exists) will be inserted inside/after it
+     * @param   string   errorFunc      The function that will be used to display the error, Ex: html(), after(), ..etc.
+     * @param   string   errorType      specifies how the error will be displayed, default or as row
+     * @param   string   returnVal      the expected value returned from the server(regardless of errors and redirections), Ex: success, data, ..etc.
+     * @return  boolean
+     */
+    validateData: function (result, targetBlock, errorFunc, errorType, returnVal){
+
+        // 1. clear all existing error or success messages
+        helpers.clearMessages(targetBlock);
+
+        // 2. Define and extend jQuery functions required to display the error.
+        if(errorFunc === "html")        errorFunc = helpers.html;
+        else if(errorFunc === "after")  errorFunc = helpers.after;
+        else                            errorFunc = helpers.html;
+
+        // 3. check if result is empty
+        if(helpers.empty(result)){
+            helpers.displayError(targetBlock);
+            return false;
+        }
+
+        // If there was a redirection
+        else if(!helpers.empty(result.redirect)){
+            helpers.redirectTo(result.redirect);
+            return false;
+        }
+
+        // If there was errors encountered and sent from the server, then display it
+        else if(!helpers.empty(result.error)){
+
+            if(errorType === "default" || helpers.empty(errorType)){
+                errorFunc(targetBlock, result.error);
+            } else if(errorType === "row"){
+                var td = $("<td>").attr("colspan", "5");
+                errorFunc(targetBlock, $(td).html(result.error));
+            }
+
+            return false;
+        }
+
+        else{
+
+            if(returnVal === "success" && helpers.empty(result.success)){
+                helpers.displayError(targetBlock);
+                return false;
+            } else if(returnVal === "data" && helpers.empty(result.data)){
+                helpers.displayError(targetBlock);
+                return false;
+            } else if(returnVal !== "data" && returnVal !== "success"){
+                helpers.displayError(targetBlock);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+};
+      var app = {
+          init: function (){
+            if(!helpers.empty(config.curPage)){
+                if(config.curPage.constructor === Array){
+
+                    config.curPage.forEach(function(sub) {
+
+                        // add 'active' class to current navigation list
+                        $(".sidebar-nav #"+ sub +" a").addClass("active");
+                        //events[sub].init();
+                    });
+
+                }else{
+                    $(".sidebar-nav #"+ config.curPage +" a").addClass("active");
+                    if(!helpers.empty(events[config.curPage])){
+                        events[config.curPage].init();
+                    }
+                }
+            }
+            $("#list-languages li a").on("click",function(elem){
+              elem.preventDefault();
+              //console.log($(this).find("img").attr("value"));console.log(config.root);
+              var lang = $(this).find("img").attr("value");
+              ajax.send("Language/changeLang",{lang:lang,redirect:config.root},getLangCallback);
+              function getLangCallback(result){
+                   if(helpers.validateData(result, "#list-languages" , "redirect", "default", "success")){
+                     console.log(result.redirect);console.log(config.root);
+                         redirectTo(result.redirect);
+                      }
+              }
+            })
+          }
+      };
+      var events = {
+        login:{
+          init: function(){
+              events.login.tabs();
+          },
+          tabs: function(){
+              $("#form-login #link-forgot-password, #form-forgot-password #link-login").click(function() {
+
+                  $("#form-login, #form-forgot-password" ).toggleClass("display-none");
+                  $(".error, .success").remove();
+              });
+
+              $("#link-register").click(function() {
+
+                  $("#form-login, #form-forgot-password").addClass("display-none");
+                  $("#form-register").removeClass("display-none");
+                  $(".panel-title").text("Register");
+                  $(".error, .success").remove();
+              });
+
+              $("#form-register #link-login").click(function() {
+
+                  $(".panel-title").text("Login");
+                  $("#form-register").addClass("display-none");
+                  $("#form-login").removeClass("display-none");
+                  $(".error, .success").remove();
+              });
+          }
+        },
+        products: {
+            init: function(){
+                events.products.initdata();
+                events.products.update();
+                events.products.updateQuantity()
+                events.products.addCart();
+            },
+            addCart: function(){
+                $("#form-cart-products").submit(function(e){
+                  e.preventDefault();
+
+                  var productId           = $("input[name='product_id']").attr("value");
+                  var optionId            = $("#list-option-select .form-control").attr("value");
+                  var optionValueId       = $("#select-" + optionId).find("option:selected").val();
+                  var productOptionPrice  = $("#price").val();
+                  var quantityObject      = $("#form-cart-products input[name='quantity']").val();
+                  var selectedOption      = $("#select-" + optionId).text();
+                  var optionDateId        = $("#list-option-date .form-control").parent().parent().attr("id");
+                  var optionDateName      = $("#list-option-date .form-control").attr("name");
+                  //var dateService         = $("#datetimepicker-"+ optionDateId +" input[name='"+optionDateName+"']").val();
+                  var dateService,temp;
+                  var arr = [];
+                  $('html, body').animate({
+                      scrollTop: ($('#wrapper').offset().top)
+                  },500);
+                  $(".option-date #list-option-date").each(function(){
+                       var optionId        = $(this).find(".form-control").attr("value");
+                       var optionDateId    = $(this).find(".form-control").parent().parent().attr("id");
+                       var optionDateName  = $(this).find(".form-control").attr("name");console.log(optionDateName);
+                       var optionValue      = $("#datetimepicker-"+ optionDateId +" input[name='"+optionDateName+"']").val();
+                       //arr[optionDateName] = optionValue;
+
+                       arr.push({optionDateName : optionDateName , optionValue: optionValue})
+                  });
+                ajax.send("Products/UpdateCart", {product_id: productId, option_value_id: optionValueId, option_id:optionId, quantity: quantityObject, date_service: arr},updateCartCallBack);
+                });
+                    function updateCartCallBack(result){
+                      if(helpers.validateData(result, "#form-cart-products", "after", "default", "success")){
+                         $("#form-cart-products").parent().before(result.success);
+                         resetField();
+                      }
+                    }
+
+                    function resetField(){
+                        var optionId = $("#list-option-select .form-control").attr("value");
+                        var optionDateId        = $("#list-option-date .form-control").parent().parent().attr("id");
+                        var optionDateName      = $("#list-option-date .form-control").attr("name");
+                        $("#form-cart-products input[name='quantity']").val('');
+                        $("#datetimepicker-"+ optionDateId +" input[name='"+optionDateName+"']").val('');
+                        $('option:selected', "#select-" + optionId).removeAttr('selected');
+                    }
+             },
+            updateQuantity: function(){
+                $("#form-cart-products input[name='quantity']").on('change',function(e){
+                        e.preventDefault();
+                        var productId = $("input[name='product_id']").attr("value");
+                        var selectedValue = $(this).find("option:selected").text();
+                        var selectoption = $(this).val();
+                });
+            },
+            //id select per ora ad 1
+            update : function(){
+              var optionId            = $("#list-option-select .form-control").attr("value");
+                $("#select-" + optionId).on('change',function(){
+                    var selectedText = $(this).find("option:selected").text();
+                    //var selectedValue = $(this).find("option:selected").value();
+                    var  attrId = $(this).attr("id");
+                    var selectedOption = $(this).val();
+                    console.log(selectedText);
+                });
+            },
+            initdata :function(){
+              var disabledday = ['01/01/2018'];
+              var disabledayall;
+              $(".option-date #list-option-date").each(function(){
+                   var optionId        = $(this).find(".form-control").attr("value");
+                   var optionDateId    = $(this).find(".form-control").parent().parent().attr("id");
+                   var optionDateName  = $(this).find(".form-control").attr("name");
+                   var productId       = $("input[name='product_id']").attr("value");
+                   ajax.send("products/getProductDates", {product_id: productId},updateDatePicker);
+
+                   function updateDatePicker(result){
+                     var disable = result.data.option_date;
+                     var array = disable.split(",");
+                     function combine_ids( array ) {
+                        var tmp = '';
+                        for ( var i = 0; i < array.length; i++ ) {
+                          if (i==0){
+                            tmp += "'" +  array[i] + "'";
+                            disabledday.push(array[i]);
+                          }
+                          else{
+                            tmp += ", '" +  array[i] + "'";
+                            disabledday.push(array[i]);
+                          }
+                        }
+                        return tmp + '';
+                      }
+                     disabledayall = combine_ids(array);
+                     //console.log(disabledayall);
+                     //disabledday = ['01/24/2019', '01/25/2019', '01/26/2019', '01/27/2019'];
+                     console.log(disabledday);
+                     //disabledayall = combine_ids(array).map(function(a) {console.log(a);});
+                     $("#datetimepicker-"+optionDateId).datetimepicker({
+                       defaultDate: new Date(),
+                       format: 'DD/MM/YYYY',
+                       disabledDates: disabledday
+                     });
+                   }
+
+                   //disabledday = [moment('01/19/2019'), moment('01/20/2019'), moment('01/21/2019'), moment('01/22/2019')];
+                   //console.log("Entra In Date" + disabledday);
+
+              });
+            }
+        },
+        shop: {
+            init: function(){
+                events.shop.confirm();
+                events.shop.deleteItem();
+                events.shop.updateItem();
+            },
+            confirm: function(){
+              $("#form-checkout-products").submit(function(e){
+              e.preventDefault();
+              var firstName    = $("#form-checkout-products input[name='firstName']").val();
+              var lastName     = $("#form-checkout-products input[name='lastName']").val();
+              var phoneNumber  = $("#form-checkout-products #example-tel-input").val();
+              var email        = $("#form-checkout-products #example-email").val();
+              var url          = config.root;
+              var selected     = getValueUsingParentTag();
+
+              if (selected != undefined && selected == "inputPaypal"){
+                 ajax.send("Shop/Confirm", {firstName: firstName, lastName: lastName, phoneNumber:phoneNumber, email: email, url: url},getConfirmCallBack, "#form-checkout-products");
+                 } else if (selected != undefined && selected == "inputBankTransfer"){
+                 ajax.send("Shop/ConfirmBankTransfer", {firstName: firstName, lastName: lastName, phoneNumber:phoneNumber, email: email, url: url},getConfirmBackTransfer, "#form-checkout-products");
+                 }
+                 else{ alert("Scegli un metodo di pagamento valido");}
+                  function getConfirmBackTransfer(result){
+                    if(helpers.validateData(result, "#form-checkout-products", "html", "default", "data")){
+                        $("#list-checkout-products").html(result.data);
+                        console.log(result.data);
+                      }
+                  }
+                  function getConfirmCallBack(result){
+                    if(helpers.validateData(result, "#form-checkout-products", "html", "default", "data")){
+                        $("#list-checkout-products").html(result.data);
+                        console.log(result.data);
+                      }
+                  }
+                  function getValueUsingParentTag(){
+                    var chkArray = [];
+                    $("#form-checkout-products input:checked").each(function() {
+                      chkArray.push($(this).val());
+                    });
+
+                    /* we join the array separated by the comma */
+                    var selected;
+                    selected = chkArray.join(',') ;
+
+                    /* check if there is selected checkboxes, by default the length is 1 as it contains one single comma */
+                    if(selected.length > 1){
+                      return selected;
+                    }
+                  }
+             });
+           },
+           updateItem: function(){
+                $("#list-cart-products input[name='quantity']").on('change',function(e){
+                e.preventDefault();
+
+                var row     = $(this).parent().parent().parent();
+                var itemId  = row.attr("id");
+                var itemPrice = $(this).parent().parent().parent().find(".price").text();
+                var itemQuantity = $(this).parent().find("input[name='quantity']").val();
+                console.log(itemId);
+                console.log(itemQuantity);
+                console.log(itemPrice);
+
+                    ajax.send("shop/updateQuantity", {item_id: itemId, item_quantity:itemQuantity, item_price:itemPrice},updateQuantityItem);
+                    function updateQuantityItem(result){
+                        if(helpers.validateData(result, row, "after", "row", "success")){
+                            $(row).parent().parent().parent().parent().parent().parent().after(result.success);
+                            window.location.href = config.root + 'shop/shop';
+                        }
+                    }
+
+                });
+           },
+           deleteItem: function(){
+
+                $("#list-cart-products tr td .delete").click(function(e){
+                    e.preventDefault();
+
+                    var row     = $(this).parent().parent().parent();
+                    var itemId  = row.attr("id");
+
+                    ajax.send("shop/removeItem", {item_id: itemId}, deleteItemCallBack);
+
+                    function deleteItemCallBack(result){
+                        if(helpers.validateData(result, row, "after", "row", "success")){
+                            $(row).parent().parent().parent().parent().parent().parent().after(result.success);
+                            $(row).remove();
+                            window.location.href = config.root + 'shop/shop';
+                        }
+                    }
+              });
+          }
+    },
+
+    users: {
+        init: function(){
+            events.users.search();
+            events.users.update();
+            events.users.delete();
+        },
+        reInit: function(){
+            events.users.delete();
+        },
+        get: function(pageNumber){
+
+            if(helpers.empty(pageNumber)) pageNumber = 1;
+
+            var name    = $("#form-search-users input[name='name']").val();
+            var email   = $("#form-search-users input[name='email']").val();
+            var role    = $("#form-search-users select[name='role']").val();
+
+            ajax.send("Admin/getUsers", {name: name, email: email, role: role, page: pageNumber},
+                events.users.get_search_callback, "#list-users");
+        },
+        search: function(){
+
+            $("#form-search-users").submit(function(e){
+                e.preventDefault();
+                ajax.send("Admin/getUsers", helpers.serialize(this, "page=1"), events.users.get_search_callback, "#list-users");
+            });
+        },
+        get_search_callback: function(result){
+            if(helpers.validateData(result, "#form-search-users", "after", "default", "data")){
+                $("#list-users tbody").html(result.data.users);
+                events.users.reInit();
+
+                $("ul.pagination").html(result.data.pagination);
+                //events.pagination.init();
+            }else{
+                $("ul.pagination").html("");
+            }
+        },
+        update: function(){
+
+            $("#form-update-user-info").submit(function(e){
+                e.preventDefault();
+                ajax.send("Admin/updateUserInfo", helpers.serialize(this, "user_id="+config.userId), updateUserInfoCallBack, "#form-update-user-info");
+            });
+
+            function updateUserInfoCallBack(result){
+                if(helpers.validateData(result, "#form-update-user-info", "after", "default", "success")){
+                    $("#form-update-user-info").after(result.success);
+                }
+            }
+        },
+        delete: function(){
+
+            $("#list-users tr td .delete").click(function(e){
+                e.preventDefault();
+                if (!confirm("Are you sure?")) { return; }
+
+                var row     = $(this).parent().parent().parent();
+                var userId  = row.attr("id");
+
+                ajax.send("Admin/deleteUser", {user_id: userId}, deleteUserCallBack);
+                function deleteUserCallBack(result){
+                    if(helpers.validateData(result, row, "after", "row", "success")){
+                        $(row).remove();
+                    }
+                }
+            });
+        }
+      }
+      };
+        app.init();
+      });
+    </script>
+
+</body>
+</html>

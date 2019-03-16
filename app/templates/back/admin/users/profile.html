@@ -1,0 +1,229 @@
+{% extends "back/admin/layout/base.html" %}
+{% block head %} 
+{{ parent() }} 
+<style type="text/css"> 
+body {
+    background-color: #f8f8f8;
+}
+
+#wrapper {
+    width: 100%;
+}
+
+#page-wrapper {
+    padding: 0 15px;
+    min-height: 568px;
+    background-color: #fff;
+}
+
+@media(min-width:768px) {
+    #page-wrapper {
+        position: inherit;
+        margin: 0 0 0 250px;
+        padding: 0 30px;
+        border-left: 1px solid #e7e7e7;
+    }
+}
+.navbar-top-links {
+    margin-right: 0;
+}
+
+.navbar-top-links li {
+    display: inline-block;
+}
+
+.navbar-top-links li:last-child {
+    margin-right: 15px;
+}
+
+.navbar-top-links li a {
+    padding: 15px;
+    min-height: 50px;
+}
+
+.navbar-top-links .dropdown-menu li {
+    display: block;
+}
+
+.navbar-top-links .dropdown-menu li:last-child {
+    margin-right: 0;
+}
+
+.navbar-top-links .dropdown-menu li a {
+    padding: 3px 20px;
+    min-height: 0;
+}
+
+.navbar-top-links .dropdown-menu li a div {
+    white-space: normal;
+}
+
+.navbar-top-links .dropdown-messages,
+.navbar-top-links .dropdown-tasks,
+.navbar-top-links .dropdown-alerts {
+    width: 310px;
+    min-width: 0;
+}
+
+.navbar-top-links .dropdown-messages {
+    margin-left: 5px;
+}
+
+.navbar-top-links .dropdown-tasks {
+    margin-left: -59px;
+}
+
+.navbar-top-links .dropdown-alerts {
+    margin-left: -123px;
+}
+
+.navbar-top-links .dropdown-user {
+    right: 0;
+    left: auto;
+}
+.sidebar .sidebar-nav.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.sidebar .sidebar-search {
+    padding: 15px;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sidebar ul li a.active {
+    background-color: #eee;
+}
+
+.sidebar .arrow {
+    float: right;
+}
+
+.sidebar .fa.arrow:before {
+    content: "\f104";
+}
+
+.sidebar .active>a>.fa.arrow:before {
+    content: "\f107";
+}
+
+.sidebar .nav-second-level li,
+.sidebar .nav-third-level li {
+    border-bottom: 0!important;
+}
+
+.sidebar .nav-second-level li a {
+    padding-left: 37px;
+}
+
+.sidebar .nav-third-level li a {
+    padding-left: 52px;
+}
+
+@media(min-width:768px) {
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        margin-top: 51px;
+    }
+
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+    }
+}
+</style> 
+{% endblock %}
+{% block content %}        
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Profile</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+			   <div class="col-sm-2 col-lg-2"></div>
+               <div class="col-sm-8 col-lg-8">
+					<div class="panel panel-default">
+                        <div class="panel-heading">
+                           <i class="fa fa-pencil"></i> Update Profile
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form action="<?php echo PUBLIC_ROOT; ?>User/updateProfileInfo" id="form-profile-info" method="post" >
+										<div class="form-group">
+											<div class="block-section text-center">
+												<img src="{{setting.url}}images/profile_pictures/{{userLogged.profile_picture}}" class="img-circle profile-pic-lg">
+												<h3><strong>{{userLogged.name}}</strong></h3>
+												<h4>
+													<span class="label label-primary">{{userLogged.role}}</span>
+												</h4>
+											</div>
+										</div>
+                                        <div class="form-group">
+                                            <label>User Name</label>
+                                            <input dir="auto" type="text" name="name" value="{{userLogged.name}}" class="form-control" required maxlength="30" placeholder="Your Name..">
+											<p class="help-block"><em>The maximum number of characters allowed is <strong>30</strong></em></p>
+                                        </div>
+										<div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" name="password" class="form-control" placeholder="Password">
+                                            <p class="help-block">Please enter a complex password</p>
+                                        </div>
+										<div class="form-group">
+                                            <label>Email</label>
+                                             <input type="email" name="email" value="{{userLogged.email}}" class="form-control" maxlength="50" placeholder="Your Email..">
+                                        </div>
+										<div class="form-group">
+                                             <input type="email" name="confirm_email" value="" class="form-control" maxlength="50" placeholder="Confirm Email">
+											 <p class="help-block"><em>Please enter your email again.</em></p>
+                                        </div>
+										<div class="form-group">
+											<input type="hidden" name="csrf_token" value="{{generateCsrfToken}}" />
+										</div>
+										<div class="form-group form-actions text-right">
+											<button type="submit" name="submit" value="submit" class="btn btn-md btn-primary">
+												<i class="fa fa-check"></i> Update
+											</button>
+										</div>
+                                    </form>
+
+									<!-- Upload Profile Picture -->
+                                    <form action="{{setting.url}}User/updateProfilePicture" id="form-profile-picture" 
+                                    	method="post" enctype="multipart/form-data">
+										<div class="form-group">
+											<label>Profile Picture</label>
+											<input type="file" name="file" required>
+											<p class="help-block"><em> Only JPEG, JPG, PNG & GIF Files</em></p>
+											<p class="help-block"><em> Max File Size: 2MB</em></p>
+										</div>
+										<!-- Hidden By default-->
+										<div class="progress progress-striped active display-none">
+											<div class="progress-bar progress-bar-success" style="width: 0%"></div>
+										</div>
+										<div class="form-group">
+											<input type="hidden" name="csrf_token" value="{{generateCsrfToken}}" />
+										</div>
+										<div class="form-group form-actions text-right">
+											<button type="submit" value="submit" class="btn btn-md btn-primary">
+												<i class="fa fa-upload"></i> Upload
+											</button>
+										</div>
+									</form>
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+
+
+                </div>    
+        </div>
+{% endblock %}            

@@ -1,0 +1,216 @@
+{% extends "back/admin/layout/base.html" %}
+{% block head %} 
+{{ parent() }} 
+<style type="text/css"> 
+.#wrapper { width:100%; } 
+.navbar-top-links {
+    margin-right: 0;
+}
+
+.navbar-top-links li {
+    display: inline-block;
+}
+
+.navbar-top-links li:last-child {
+    margin-right: 15px;
+}
+
+.navbar-top-links li a {
+    padding: 15px;
+    min-height: 50px;
+}
+
+.navbar-top-links .dropdown-menu li {
+    display: block;
+}
+
+.navbar-top-links .dropdown-menu li:last-child {
+    margin-right: 0;
+}
+
+.navbar-top-links .dropdown-menu li a {
+    padding: 3px 20px;
+    min-height: 0;
+}
+
+.navbar-top-links .dropdown-menu li a div {
+    white-space: normal;
+}
+
+.navbar-top-links .dropdown-messages,
+.navbar-top-links .dropdown-tasks,
+.navbar-top-links .dropdown-alerts {
+    width: 310px;
+    min-width: 0;
+}
+
+.navbar-top-links .dropdown-messages {
+    margin-left: 5px;
+}
+
+.navbar-top-links .dropdown-tasks {
+    margin-left: -59px;
+}
+
+.navbar-top-links .dropdown-alerts {
+    margin-left: -123px;
+}
+
+.navbar-top-links .dropdown-user {
+    right: 0;
+    left: auto;
+}
+.sidebar .sidebar-nav.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.sidebar .sidebar-search {
+    padding: 15px;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sidebar ul li a.active {
+    background-color: #eee;
+}
+
+.sidebar .arrow {
+    float: right;
+}
+
+.sidebar .fa.arrow:before {
+    content: "\f104";
+}
+
+.sidebar .active>a>.fa.arrow:before {
+    content: "\f107";
+}
+
+.sidebar .nav-second-level li,
+.sidebar .nav-third-level li {
+    border-bottom: 0!important;
+}
+
+.sidebar .nav-second-level li a {
+    padding-left: 37px;
+}
+
+.sidebar .nav-third-level li a {
+    padding-left: 52px;
+}
+.panel-primary{
+    background-color:#336BFF;
+}
+.panel-green{
+    background-color:#A8FF33;
+}
+.panel-yellow{
+    background-color:#FFF033;
+}
+.panel-red{
+    background-color:#FF3F33;
+}
+.huge {
+    font-size: 40px;
+}
+@media(min-width:768px) {
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        margin-top: 51px;
+    }
+
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+    }
+}
+</style> 
+{% endblock %}
+{% block content %}        
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Users</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+               <div class="col-sm-2 col-lg-2"></div>
+               <div class="col-sm-8 col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Update Profile
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form action="#" id="form-update-user-info" method="post" >
+                                        <div class="form-group">
+                                            <div class="block-section text-center">
+                                                <img src="{{setting.url}}images/profile_pictures/{{info.profile_picture}}" class="img-circle profile-pic-lg">
+                                                <h3><strong>{{ info.name }}</strong></h3>
+                                                <h4>
+                                                    <span class="label label-default">{{ info.role }}</span>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>User Name</label>
+                                            <input dir="auto" type="text" name="name" value="{{info.name}}" class="form-control" required maxlength="30" placeholder="Name..">
+                                            <p class="help-block"><em>The maximum number of characters allowed is <strong>30</strong></em></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                             <input type="email" value="{{info.email}}" disabled class="form-control" maxlength="50" placeholder="Email..">
+                                            
+                                            <!--- for users who registered but didn't verify their account -->
+                                            {% if info.is_email_activated is empty %}
+                                                <p class="text-danger"><em>Email is not activated</em></p>
+                                            {% else %}
+                                                <p class="text-success"><em>Email has been verified</em></p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" name="password" class="form-control" placeholder="Password">
+                                            <p class="help-block">Please enter a complex password</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Role</label>
+                                            <select name="role" class="form-control" size="1">
+                                                <option value="">Select Role</option>
+                                                {% for role in ["admin","user"] %}
+                                                    {% if role==info.role %}
+                                                        <option selected value="{{ role }}">{{ role }}</option>
+                                                    {% else %} 
+                                                        <option  value="{{ role }}">{{ role }}</option>
+                                                    {% endif %}                                                 
+                                                {% endfor %}      
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-actions text-right">
+                                            <button type="submit" name="submit" value="submit" class="btn btn-md btn-primary">
+                                                <i class="fa fa-check"></i> Update
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <!-- END Update Profile -->
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+                <!-- END Profile Block -->
+            </div>
+            <!-- /.row -->
+{% endblock %}

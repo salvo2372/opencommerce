@@ -1,0 +1,102 @@
+{% extends "front/index/base.html" %}
+
+{% block head %} 
+{{ parent() }} 
+<style type="text/css"> 
+.repository-content{width:100%}
+.file{position:relative;margin-top:16px;margin-bottom:16px;border:1px solid #ddd;border-radius:3px}
+ table.files{width:100%;background:#fff;border-radius:2px}
+ table.files tr.navigation-focus td{background:#f6f8fa}
+ table.files td{padding:6px 3px;line-height:20px;border-top:1px solid #eaecef}
+ table.files td.icon{width:17px;padding-right:2px;padding-left:10px;color:rgba(3,47,98,0.55)}
+ table.files td.icon .octicon-file-directory{color:rgba(3,47,98,0.5)}
+ table.files td.icon .spinner{position:relative;top:3px;display:none;margin-top:-3px;margin-left:-2px}
+ table.files td .simplified-path{color:#6a737d}
+ table.files td .css-truncate{max-width:100%}
+ table.files td.content{max-width:180px}
+ table.files td.message{max-width:442px;padding-left:10px;overflow:hidden;color:#6a737d}
+ table.files td.message .emoji{vertical-align:top}table.files td.message a{color:#6a737d}
+ table.files td.message a:hover{color:#0366d6}table.files td.age{width:125px;padding-right:10px;color:#6a737d;text-align:right;white-space:nowrap}
+ table.files .message .tooltipped::before,table.files .message .tooltipped::after{display:none}
+ table.files tr.is-loading td.icon .octicon{display:none}
+ table.files tr.is-loading td.icon .spinner{display:inline-block}
+ table.files tr.up-tree{border-top:1px solid #eaecef;border-bottom:1px solid #eaecef}
+ table.files tr.up-tree a{padding:3px 6px;margin-left:-3px;font-weight:600;border-radius:2px}
+ table.files tr.up-tree a:hover{background-color:#dfe2e5}
+ table.files tbody tr:first-child td{border-top:0}
+</style> 
+{% endblock %}
+{% block content %}
+        <div class="row">
+            <div class="col-md-12">          
+                <div class="repository-content">
+  
+                    <div class="files">             
+                         <table class="files js-navigation-container js-active-navigation">
+                            <tbody>
+                                <tr class="js-navigation-item">
+                                    <td class="icon">
+                                        <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z"></path></svg>
+                                    </td>
+                                    <td class="content">
+                                        <span class="css-truncate css-truncate-target"><a href="/sindresorhus/awesome/tree/master/media" class="js-navigation-open" id="62933a2951ef01f4eafd9bdf4d3cd2f0-30986eb7ca4f000382cbc365bc557135d49a416a" title="media">media</a></span> 
+                                        <a href="/sindresorhus/awesome/tree/master/media" class="js-navigation-open" id="62933a2951ef01f4eafd9bdf4d3cd2f0-30986eb7ca4f000382cbc365bc557135d49a416a" title="media">media</a>
+                                    </td>
+                                    <td class="message">
+                                        <span class="css-truncate css-truncate-target">
+                                            <a href="/sindresorhus/awesome/commit/e533aefc1c126ba6fd1ec8ba743ebd54dffa97a5" class="message" data-pjax="true" title="minor tweaks">minor tweaks</a>
+                                        </span>
+                                    </td>
+                                    <td class="age">
+                                        <span class="css-truncate css-truncate-target"><time-ago datetime="2016-01-18T12:22:00Z" title="18 gen 2016, 13:22 CET">2 years ago</time-ago></span>
+                                    </td>
+                                <tr class="js-navigation-item">
+                                    <td class="icon">
+                                        <svg aria-hidden="true" class="octicon octicon-file-text" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path d="M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z"></path></svg>
+                                    </td>
+                                    <td class="content">
+                                        <span class="css-truncate css-truncate-target"><a href="/sindresorhus/awesome/tree/master/media" class="js-navigation-open" id="62933a2951ef01f4eafd9bdf4d3cd2f0-30986eb7ca4f000382cbc365bc557135d49a416a" title="media">media</a></span> 
+                                        <a href="/sindresorhus/awesome/tree/master/media" class="js-navigation-open" id="62933a2951ef01f4eafd9bdf4d3cd2f0-30986eb7ca4f000382cbc365bc557135d49a416a" title="media">media</a>
+                                    </td>
+                                    <td class="message">
+                                        <span class="css-truncate css-truncate-target">
+                                            <a href="/sindresorhus/awesome/commit/e533aefc1c126ba6fd1ec8ba743ebd54dffa97a5" class="message" data-pjax="true" title="minor tweaks">minor tweaks</a>
+                                        </span>
+                                    </td>
+                                    <td class="age">
+                                        <span class="css-truncate css-truncate-target"><time-ago datetime="2016-01-18T12:22:00Z" title="18 gen 2016, 13:22 CET">2 years ago</time-ago></span>
+                                    </td>
+                                </tr>                                    
+                                </tr>
+                            </tbody>                
+                         </table>   
+                    </div>    
+                </div>
+            </div>
+            </div>
+        </div>                  
+        <div class="row">
+            <div class="col-md-12">     
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">file : Base.html</h3>
+                    </div>    
+                    <div class="panel-body">                              
+
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <div class="row">
+            <div class="col-md-12">     
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">file : index.html</h3>
+                    </div>    
+                    <div class="panel-body">  
+
+                    </div>
+                </div>
+            </div>
+        </div>                    
+{% endblock %}

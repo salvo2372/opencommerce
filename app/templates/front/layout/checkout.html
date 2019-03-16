@@ -1,0 +1,17 @@
+        <tr id="{{cartItem.id}}">
+          <td>
+            <strong>{{cartItem.name}} x {{ cartItem.quantity }}</strong>
+            <br>
+                  {% if cartItem.options is empty %}
+                      Not Option Selected
+                  {% else %}
+                      {% for key, value in cartItem.options %}
+                        <em>
+                          {{ key }} : {{ value }}{# var won't be escaped #}
+                        </em> 
+                        <br /> 
+                      {% endfor %}  
+                  {% endif %}
+            </td>
+            <td><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&euro;</span>{{ cartItem.total }}</span></td>
+        </tr>

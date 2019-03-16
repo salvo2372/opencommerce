@@ -1,0 +1,64 @@
+{% extends "back/admin/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+        <div id="page-wrapper">
+            <div class="row">
+               <div class="col-sm-2 col-lg-2"></div>
+                <div class="col-lg-10">
+                    <h1 class="page-header">{% if setting.page_title is defined %} {{ setting.page_title}} {% endif %}</h1>
+                </div>                <!-- /.col-lg-10 -->
+            </div><!-- /.row -->
+            <div class="row">
+               <div class="col-sm-2 col-lg-2"></div>
+               <div class="col-sm-10 col-md-10 col-lg-10">
+                    <!-- Newsfeed Block -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-wechat"></i> {{lang.button_upload_files}}
+                            <div class="pull-right">
+                                <button
+                                    class="btn btn-success btn-xs" onclick="window.location='{{ setting.url }}Posts/newPost'"
+                                    <i class="fa fa-plus"></i> {{lang.new_file}}
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                          <div class="row">
+                              <div class="col-lg-12">
+                                  <form id="form-upload-file" method="post" enctype="multipart/form-data">
+                                      <div class="form-group">
+                                          <label>File <span class="text-danger">*</span></label>
+                                          <input type="file" name="file" id="file" required>
+                                          <p class="help-block"><em> Only PDF, PPT, DOCX & ZIP Files</em></p>
+                                          <p class="help-block"><em> Max File Size: 5MB</em></p>
+                                                            </div>
+                                        <div class="progress progress-striped active display-none">
+                                          <div class="progress-bar progress-bar-success" style="width: 0%"></div>
+                                        </div>
+                                        <div class="form-group form-actions text-right">
+                                           <button type="submit" value="submit" class="btn btn-md btn-success">
+                                            <i class="fa fa-upload"></i> {{lang.button_upload}}
+                                          </button>
+                                        </div>
+                                  </form>
+                              </div>
+                              <!-- /.col-lg-6 (nested) -->
+                          </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+
+                </div>
+            <!-- END Newsfeed Block -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="container category row">
+    <div class="category-grid" class="list-group">
+        {% for row in categories|batch(4, 'No Item') %}
+            <div>
+                {% for category in row %}
+                <div class="category-item col-xs-12 col-md-6 col-lg-4">
+                    <a  href="{{setting.url}}category/index/{{category.id}}" class="category-item-link">                  
+                        {% if category.id is not empty %}
+                            <div>
+                                  <div class="img">
+                                    <img  src="{{setting.url}}assets/img/categories/{{category.src}}"  alt="" />
+                                  </div>
+                                <div>
+                                    <div class="category-name">
+                                       <h4 >{{category.name}}</h4>
+                                    </div>
+                                    <p>
+
+                                        {% autoescape 'html' %}
+                                            {{ category.summary|truncate(100)|raw }}
+                                        {% endautoescape %}
+
+                                    </p>
+
+                                </div>
+                            </div>
+                        {% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

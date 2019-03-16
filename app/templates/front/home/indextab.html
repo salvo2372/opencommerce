@@ -1,0 +1,151 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+    <script>
+      $(document).ready(function(){
+        $('ul.first').bsPhotoGallery({
+          "classes" : "col-lg-2 col-md-4 col-sm-3 col-xs-4 col-xxs-12",
+          "hasModal" : true,
+          // "fullHeight" : false
+        });
+      });
+    </script>
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+              <h2 class="intro-text text-center"><strong>{% if lang.page_title is defined %} {{ lang.page_title }} {% endif %}</strong></h2>
+              <p class="text-center">
+                {{lang.heading_text}}
+              </p>
+            </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12" style="background-color:none">
+                <div class="bgpdf">
+                    <a class="pdf" title="Scarica la nostra brochure" target="_blank" href="{{ setting.url }}assets/uploads/sicilia.pdf">SCARICA LA NOSTRA BROCHURE</a>
+                </div>
+            </div><!-- Col-md-12 -->
+        </div><!-- Row -->
+            <div class="col-md-12 col-lg-12">
+                <h2 class="intro-text text-center">{{lang.heading_title}}</h2>
+                <hr>
+                <ul class="nav nav-tabs" id="mioTab">
+                  <li role="presentation" class="active"><a href="#milazzo" data-toggle="tab">MILAZZO</a></li>
+                  <li role="presentation"><a href="#lipari" data-toggle="tab">LIPARI</a></li>
+                  <li role="presentation"><a href="#vulcano" data-toggle="tab">VULCANO</a></li>
+                </ul>
+                <div class="tab-content product-wrapper">
+                    <div class="tab-pane active products" id="milazzo">
+                        {% for row in products|batch(3, 'No Item') %}
+                        <div class="row">
+                            {% for product in row %}
+                            {% if (product.target == "Milazzo") %}
+                            <div class="item col-xs-12 col-md-6 col-lg-4">
+                                <div class="thumbnail product">
+                                    <div class="hovereffect">
+                                        <div class="product-image">
+                                          <img class="img-responsive" src="{{ setting.url }}assets/img/products/{{ product.src }}" alt="{{product.name}}" title="{{product.name}}">
+                                        </div>
+                                        <div class="overlay">
+                                            <h2>{{lang.minicruise}}</h2>
+                                            <a class="info" href="{{setting.url}}products/index/{{product.id}}">DETTAGLI</a>
+                                        </div><!-- Overlay-->
+                                    </div><!-- HoverEffect -->
+                                    <div class="caption header">
+                                        <h4 class="group inner list-group-item-heading h4-short">{{ product.name }}</h4>
+                                        <p class="group inner list-group-item-text p-short">
+                                            {% autoescape 'html' %}
+                                                {{ product.summary|truncate(100)|raw }}
+                                            {% endautoescape %}
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-6 product-action">
+                                                <a class="btn btn-default button" href="{{ setting.url }}products/index/{{product.id}}">{{lang.button_description}}</a>
+                                            </div>
+                                        </div>
+                                    </div><!-- Caption -->
+                                </div><!-- Thumbnail -->
+                            </div><!-- Col-sm-6 Col-md-4 Tab Pane -->
+                            {% endif %}
+                            {% endfor %}
+                        </div><!-- Row Tab Pane-->
+                        {% endfor %}
+                    </div><!-- Tab Pane -->
+
+                    <div class="tab-pane" id="lipari">
+                        {% for row in products|batch(3, 'No Item') %}
+                        <div class="row">
+                            {% for product in row %}
+                            {% if (product.target == "Lipari") %}
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail product">
+                                    <div class="hovereffect">
+                                    <img class="img-responsive" src="{{ setting.url }}assets/img/products/{{ product.src }}" alt="{{product.name}}" title="{{product.name}}">
+                                        <div class="overlay">
+                                            <h2>{{lang.minicruise}}</h2>
+                                            <a class="info" href="{{setting.url}}products/index/{{product.id}}">DETTAGLI</a>
+                                        </div><!-- Overlay -->
+                                    </div><!-- HoverEffect -->
+                                    <div class="caption header">
+                                        <h4 class="group inner list-group-item-heading h4-short">{{ product.name }}</h4>
+                                        <p class="group inner list-group-item-text p-short">
+                                            {% autoescape 'html' %}
+                                                {{ product.summary|truncate(100)|raw }}
+                                            {% endautoescape %}
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-6 product-action">
+                                                <a class="btn btn-default button" href="{{ setting.url }}products/index/{{product.id}}">{{lang.button_description}}</a>
+                                            </div>
+                                        </div>
+                                    </div><!-- Caption -->
+                                </div><!-- Thumbnail -->
+                            </div><!-- Col-sm-6 Col-md-4 Tab Pane -->
+                            {% endif %}
+                            {% endfor %}
+                        </div><!-- Row Tab Pane-->
+                        {% endfor %}
+                    </div><!-- Tab Pane -->
+
+                    <div class="tab-pane" id="vulcano">
+                        {% for row in products|batch(3, 'No Item') %}
+                        <div class="row">
+                            {% for product in row %}
+                            {% if (product.target == "Vulcano") %}
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail product">
+                                    <div class="hovereffect">
+                                    <img class="img-responsive" src="{{ setting.url }}assets/img/products/{{ product.src }}" alt="{{product.name}}" title="{{product.name}}">
+                                        <div class="overlay">
+                                            <h2>{{lang.minicruise}}</h2>
+                                            <a class="info" href="{{setting.url}}products/index/{{product.id}}">DETTAGLI</a>
+                                        </div><!-- Overlay -->
+                                    </div><!-- HoverEffect -->
+                                    <div class="caption header">
+                                        <h4 class="group inner list-group-item-heading h4-short">{{ product.name }}</h4>
+                                        <p class="group inner list-group-item-text p-short">
+                                        {% autoescape 'html' %}
+                                            {{ product.summary|truncate(100)|raw }}
+                                        {% endautoescape %}
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-6 product-action">
+                                                <a class="btn btn-default button" href="{{ setting.url }}products/index/{{product.id}}">{{lang.button_description}}</a>
+                                            </div>
+                                        </div>
+                                    </div><!-- Caption -->
+                                </div><!-- Thumbnail -->
+                            </div><!-- Col-sm-6 Col-md-4 Tab Pane -->
+                            {% endif %}
+                            {% endfor %}
+                        </div><!-- Row Tab Pane-->
+                        {% endfor %}
+                    </div><!-- Tab Pane -->
+
+                </div><!-- Tab Content-->
+            </div><!-- Col-md-12 -->
+        </div><!-- Row -->
+{% endblock %}

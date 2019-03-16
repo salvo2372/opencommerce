@@ -1,0 +1,58 @@
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h2 class="h2-list">{% if lang.page_title is defined %} {{lang.page_title}} {% endif %}</h2>
+        </div>
+      </div> 
+      <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">CHECKOUT PAYPAL</div>
+                    <div class="panel-body">
+                        <div class="image_frame">
+                            <div class="image_wrapper">
+                                <img src="{{url}}assets/img/paypal.jpg" class="img-thumbnail">
+                            </div>    
+                        </div>
+                    </div>
+                      <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                        <input type="hidden" name="cmd" value="_cart">
+                        <input type="hidden" name="upload" value="1">
+                        <input type="hidden" name="business" value="scolarosalvatore-facilitator@gmail.com">
+                        {% set j=1 %}
+                        {% for cartItem in cartItems %}
+                        <input type="hidden" name="item_name_{{j}}" value="{{cartItem.name}}">
+                        <input type="hidden" name="item_number_{{j}}" value="{{cartItem.productId}}">
+                        <input type="hidden" name="amount_{{j}}" value="{{cartItem.price}}">
+                        <input type="hidden" name="quantity_{{j}}" value="{{cartItem.quantity}}">
+                        {% set i=0 %}
+                        {% for key,value in cartItem.options %}
+                        <input type="hidden" name="on{{i}}_{{j}}" value="{{key}}">
+                        <input type="hidden" name="os{{i}}_{{j}}" value="{{value}}">
+                        {% set i=i+1 %}
+                        {% endfor %}
+                        {% set j=j+1 %}
+                        {% endfor %}
+                        <input type="hidden" name="currency_code" value="EUR">
+                        <input type="hidden" name="first_name" value="{{firstName}}">
+                        <input type="hidden" name="last_name" value="{{lastName}}">
+                        <input type="hidden" name="no_shipping" value="1">
+                        <input type="hidden" name="email" value="{{email}}">
+                        <input type="hidden" name="invoice" name="{{1}}-{{firstName}}{{lastName}}">
+                        <input type="hidden" name="lc" value="it">
+                        <input type="hidden" name="rm" value="2">
+                        <input type="hidden" name="no_note" value="1">
+                        <input type="hidden" name="charset" value="utf-8">
+                        <input name="return" type="hidden" value="{{url}}shop/success">
+                        <input name="notify_url" type="hidden" value="{{url}}shop/callback">
+                        <input name="cancel_return" type="hidden" value="{{url}}shop/checkout">
+                        <input type="hidden" name="paymentaction" value="sale">
+                        <input name="custom" type="hidden" value="custom fattura numero">
+                        <input name="bn" type="hidden" value="Button">
+                        <div class="form-group form-actions text-right">
+                            <button type="submit" name="submit" value="submit" class="btn btn-sm btn-primary">PAYPAL</button>
+                        </div>
+                      </form>
+                  </div><!-- /.panel-body -->
+                </div><!-- /.panel -->
+            </div><!-- /.col-md-12 -->
+    </div><!-- /.row -->

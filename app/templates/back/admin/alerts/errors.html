@@ -1,0 +1,18 @@
+<div class='error'><div class='alert alert-danger'>
+
+  {% if errors is empty %}
+
+    <i class='fa fa-times-circle'></i> <strong>System Error!</strong>
+    <br/><i class='fa fa-angle-right'></i>
+      Oops! There was an error, Please try again later or report a bug
+    </div></div>
+
+  {% else %}
+
+    <i class='fa fa-times-circle'></i> <strong>Heads Up!</strong>
+      {% for error in errors %}
+        <br/><i class='fa fa-angle-right'></i>
+        {{ error }}
+      {% endfor %}
+    </div></div>
+  {% endif %}

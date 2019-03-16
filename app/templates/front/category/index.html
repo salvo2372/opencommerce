@@ -1,0 +1,114 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div>
+            <div class="row" style="background-color:white;margin:1% 1%;padding:1% 1%;border-radius:10px">
+                <div class="item  col-xs-12 col-lg-12">
+                    <h2 class="h2-short">{{ category.name }}</h2>
+                </div><!-- Item col-xs-12 col-lg-12 -->
+                <div class="row prefaction">
+                    <div class="item_category  col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div style="background-color:white;margin:1% 1%;padding:1% 1%;border-radius:10px">
+                        <a><img itemprop="image" src="{{setting.url}}assets/img/categories/{{category.src}}" alt="" title="{{category.name}}" class="colorbox img-responsive thumbnail"></a>
+                    </div>
+                    </div><!-- /item  col-xs-4 col-lg-4 -->
+                    <div class="item_category  col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div style="background-color:white;margin:1% 1%;padding:1% 1%;border-radius:10px">
+                        {% autoescape %}
+                            {{ category.content|raw }}
+                        {% endautoescape %}
+                    </div>
+                    </div><!-- /item  col-xs-8 col-lg-8 -->
+                </div><!-- /Row Block -->
+            </div>
+
+    </div><!-- Categories Block -->
+
+    <div class="row list-group" style="background-color:white;margin:1% 1%;padding:1% 1%;border-radius:10px">
+    {% if subCategories is not empty %}
+        {% for row in subCategories|batch(3, 'No Item') %}
+            <div class="row" style="background-color:white;margin:1% 1%;padding:1% 1%;border-radius:10px">
+                <h2 class="h2-short">{{lang.category}}</h2>
+            </div>
+            <div class="row">
+                {% for category in row %}
+                    <div class="item  col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        {% if category.name is not empty %}
+                        <div class="thumbnail">
+                            <div class="hovereffect">
+                                <img class="img-responsive" src="{{ setting.url }}assets/img/categories/{{category.src}}" alt="{{category.name}}" title="{{category.name}}">
+                                        <div class="overlay">
+                                            <h2>categoria</h2>
+                                            <a class="info" href="{{ setting.url }}category/index/{{category.id}}">dettagli</a>
+                                        </div>
+                            </div>
+                            <div class="caption header">
+                                <h4 class="group inner list-group-item-heading h4-short">{{ category.name }}</h4>
+                                <p class="group inner list-group-item-text p-short">
+                                        {% autoescape 'html' %}
+                                            {{ category.summary|truncate(100)|raw }}
+                                        {% endautoescape %}
+                                </p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <a class="btn btn-primary" href="{{ setting.url }}category/index/{{category.id}}">{{lang.button_description}}
+                                        </a>
+                                    </div><!-- col-xs-12 col-md-6 -->
+                                </div><!-- Row Block -->
+                            </div><!-- Caption Block -->
+                        </div><!-- Thumbnail Block -->
+                        {% endif %}
+                    </div><!-- Item Block -->
+                {% endfor %}
+            </div><!-- Categories Row -->
+        {% endfor %}
+        {% else %}
+        {% if subProducts is not empty %}
+        <div>
+        <h2 class="h2-short">{{lang.product}}</h2>
+        {% for row in subProducts|batch(3, 'No Item') %}
+            <div class="row sub_products">
+                {% for product in row %}
+                    <div class="item  col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        {% if product.name is not empty %}
+                        <div class="thumbnail">
+                            <div class="hovereffect">
+                                <img class="img-responsive" src="{{ setting.url }}assets/img/products/{{product.src}}" alt="{{product.name}}" title="{{product.name}}">
+                                        <div class="overlay">
+                                            <h2>prodotto</h2>
+                                            <a class="info" href="{{ setting.url }}products/index/{{product.id}}">dettagli</a>
+                                        </div>
+                            </div>
+                            <div class="caption header">
+                                <h4 class="group inner list-group-item-heading h4-short">{{ product.name }}</h4>
+                                <p class="group inner list-group-item-text p-short">
+                                        {% autoescape 'html' %}
+                                            {{ product.summary|truncate(100)|raw }}
+                                        {% endautoescape %}
+                                </p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <a class="btn btn-primary" href="{{ setting.url }}products/index/{{product.id}}">{{lang.button_description}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        {% endif %}
+    {% endif %}
+    </div>
+    </div><!-- col-md-12 col-lg-12 -->
+</div><!--Row -->
+{% endblock %}

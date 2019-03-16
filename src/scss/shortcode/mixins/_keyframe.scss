@@ -1,0 +1,23 @@
+@include keyframe (block-1-animate){
+  0%
+    {width: 0}
+  16.6%{
+    left: 0;
+    right: auto;
+    width: 100%}
+  33.2%
+    {left: auto;
+    right: 0;
+    width: 0}
+}
+
+@include keyframe (block-2-animate){
+  0% {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  100% {
+    margin-left: 0%;
+  }
+}

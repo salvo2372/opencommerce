@@ -1,0 +1,114 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+  <form action="#" id="form-cart-products" method="post">
+    <div id="products" class="row list-group">
+            <div class="row">
+                    <div class="item  col-xs-12 col-lg-12">
+                        <h2 class="h2-list">{{ products.name }}</h2>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="item  col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                    <a><img itemprop="image" src="{{setting.url}}assets/img/products/{{products.src}}" alt="" title="" class="colorbox img-responsive thumbnail"></a>
+                      <div class="row" id="price">
+                          <div class='col-sm-6'>
+                              <label>Price</label>
+                          </div><!-- /Col-sm-6-->
+                          <div class='col-sm-6'>
+                              <span> <strong>&euro; </strong>{{products.price}}
+                              </span>
+                          </div><!-- /Col-sm-6-->
+                      </div><!-- /Row -->
+                    <hr>
+                      <div class="row" id="quantity">
+                          <div class="col-sm-6">
+                              <label>Quantity</label>
+                          </div><!-- /Col-sm-6-->
+                          <div class="col-sm-2">
+                              <input type="text" class="form-control" name="quantity" required value="" placeholder="{{products.minimum}}">
+                          </div><!-- /Col-sm-2-->
+                          <div class='col-sm-4'>
+                          </div><!-- /Col-sm-4-->
+                      </div><!-- /Row -->
+                    <hr>
+                    {% for productoption in productsoption %}
+                      {% if  productoption.option_type  == 'SELECT' %}
+                      <div class="row" id="list-option-select">
+                          <div class='col-sm-6'>
+                            <div class="form-group">
+                              <label for="select-{{productoption.id}}">{{productoption.option_name}}</label>
+                              <select class="form-control" name="select"  id="select-{{productoption.id}}" required value="{{productoption.id}}">
+                                <option value="">--SELECT--</option>
+                                  {% for value in productoption.option_value %}
+                                      <option value="{{value.id}}">
+                                          {{value.option_name}}
+                                      </option>
+                                  {% endfor %}
+                              </select>
+                            </div><!-- /Form Group -->
+                          </div><!-- /Col-sm-6-->
+                          <div class='col-sm-6'>
+                          </div><!-- /Col-sm-6-->
+                      </div><!-- /Row Block -->
+                      {% endif %}
+                    <hr>
+                      {% if  productoption.option_type  == 'CHECKBOX' %}
+                      <div class="row" id="list-checkbox">
+                          <div class='col-sm-6'>
+                            <div class="form-group squaredThree">
+                              <label for="chekbox-{{productoption.id}}">{{productoption.option_name}}</label>
+                              {% for value in productoption.option_value %}
+                              <input type="checkbox" class="form-control roundedOne" name="{{value.option_name}}" id="squaredThree" value="{{value.name}}"  placeholder="">
+                              <label for="{{value.id}}">{{value.option_name}}</label>
+                              {% endfor %}
+                            </div><!-- /Form Group -->
+                          </div><!-- /Col-sm-6-->
+                          <div class='col-sm-6'>
+                          </div><!-- /Col-sm-6-->
+                      </div><!-- /Row Block -->
+                      {% endif %}
+                    <hr>
+                      <div class="option-date">
+                      {% if  productoption.option_type  == 'DATE' %}
+                        <div class="row" id="list-option-date">
+                            <div class='col-sm-6'>
+                                <div class="form-group" id="{{productoption.id}}">
+                                    <label for="datetimepicker-{{productoption.id}}">{{productoption.option_name}}</label>
+                                    <div class='input-group date' id='datetimepicker-{{productoption.id}}'>
+                                        <input type="text" class="form-control" name="{{productoption.option_name}}" id="datetimepicker-{{productoption.id}}" required value=""  placeholder="">
+                                        <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='col-sm-6'>
+                            </div>
+                        </div><!-- /Row block -->
+                      {% endif %}
+                      </div>
+                    {% endfor %}
+                    <hr>
+                    <input type="hidden" name="product_id" size="2" value="{{productId}}" />
+                                        <div class="form-group form-actions text-right">
+                                             <button type="submit" name="submit" value="submit" class="btn btn-md btn-success">
+                                                    <i class="fa fa-check"></i> Add To Cart
+                                            </button>
+                                        </div><!-- /form group -->
+                </div><!-- /item  col-xs-4 col-lg-4 -->
+                <div class="item  col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    {% autoescape 'html' %}
+                        {{ products.content|raw }}
+                    {% endautoescape %}
+                </div><!-- /item  col-xs-8 col-lg-8 -->
+            </div><!-- /Row Block -->
+      </div>
+    </div><!-- Products Block -->
+  </form>
+{% endblock %}

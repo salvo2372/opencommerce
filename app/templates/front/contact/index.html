@@ -1,0 +1,53 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+.important { color: #336699; }
+</style>
+{% endblock %}
+{% block content %}
+    <div class="well well-sm">
+      <h3><strong>{% if lang.page_title is defined %} {{ lang.page_title }} {% endif %}</strong></h3>
+    </div>
+    {% if sendEmail_success is empty %}
+    <div class="row">
+      <div class="col-md-12">
+        <form action="{{ setting.url }}contact/send" id="form-send" method="post">
+          <div class="form-group">
+            <label>{{lang.your_name}}<span class='text-danger'>*</span></label>
+            <input type="text" class="form-control" name="contactName" required maxlength="60" placeholder="{{lang.your_name}}">
+          </div>
+          <div class="form-group">
+            <label>{{lang.your_email}}<span class='text-danger'>*</span></label>
+            <input type="email" class="form-control" name="contactEmail" required  placeholder="{{lang.your_email}}">
+          </div>
+          <div class="form-group">
+            <label>{{lang.your_subject}}<span class='text-danger'>*</span></label>
+            <input type="text" class="form-control" name="contactSubject" required maxlength="60" placeholder="{{lang.your_subject}}">
+          </div>
+          <div class="form-group">
+            <label>{{lang.your_message}}<span class='text-danger'>*</span></label>
+            <textarea class="form-control" name="contactMessage" required rows="10" maxlength="1800" placeholder="{{lang.your_message}}"></textarea>
+          </div>
+          <div class="form-group form-actions text-right">
+            <button type="submit" name="submit" value="submit" class="btn btn-md btn-success">
+              <i class="fa fa-check"></i>{{lang.send_email}}
+            </button>
+          </div>
+        </form>
+      </div>
+      {% else %}
+          <div class='success'>
+              <div class='alert alert-success'>
+              <i class='fa fa-check-circle'></i>
+                  {{sendEmail_success}}
+              </div>
+          </div>
+      {% endif %}
+    </div>
+    <div clss="row">
+      <div class="col-md-12">
+        <iframe src="https://maps.google.it/maps?f=q&amp;source=s_q&amp;hl=it&amp;geocode=&amp;q=Via+Luigi+Rizzo,+Milazzo,+ME&amp;aq=0&amp;oq=milazzo+Me,+Via+Luigi&amp;sll=38.22071,15.241933&amp;sspn=0.145652,0.308647&amp;g=Milazzo,+ME&amp;ie=UTF8&amp;hq=&amp;hnear=Via+Luigi+Rizzo,+Milazzo,+Messina,+Sicilia&amp;ll=38.219098,15.240912&amp;spn=0.004552,0.009645&amp;t=m&amp;z=14&amp;output=embed" width="100%" height="420" frameborder="0" style="border:0" allowfullscreen></iframe>
+      </div>
+    </div>
+{% endblock %}

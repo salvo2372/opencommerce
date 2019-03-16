@@ -1,0 +1,106 @@
+#Top_bar {
+  position:absolute;
+  left:0;
+  top:61px;
+  width:100%;
+  z-index:30;
+  .column{
+    margin-bottom:0;
+  }
+  .container{
+    max-width:100%;
+  }
+  .logo{
+    float:left;
+    margin:0 30px 0 20px;
+
+    h1{
+      margin:0;
+    }
+    &:not(.text-logo) h1{
+      line-height:0;
+      font-size:0;
+      margin:0;
+    }
+  }
+  #logo{
+    display:block;
+    height:60px;
+    line-height:60px;
+    padding:15px 0;
+    &:hover{
+      text-decoration:none;
+    }
+    img{
+      vertical-align:middle;
+      max-height:100%;
+      &.logo-sticky{
+        display:none
+      }
+      &.logo-mobile{
+        display:none;
+      }
+    }
+  }
+  .text-logo {
+    #logo{
+      font-weight:300;
+    }
+  }
+}
+
+/* Top Bar --------------------------------------------------------------------------- */
+#Top_bar{position:absolute;left:0;top:61px;width:100%;z-index:30}
+#Top_bar .column{margin-bottom:0}
+.layout-full-width.header-fw #Action_bar .container,.layout-full-width.header-fw #Top_bar .container{max-width:100%}
+#Top_bar .top_bar_left{position:relative;float:left;width:990px}
+
+	/* Logo */
+	#Top_bar .logo{float:left;margin:0 30px 0 20px}
+	#Top_bar .logo h1{margin:0}
+	#Top_bar .logo:not(.text-logo) h1{line-height:0;font-size:0;margin:0}
+	#Top_bar #logo{display:block;height:60px;line-height:60px;padding:15px 0}
+	#Top_bar #logo:hover{text-decoration:none}
+	#Top_bar #logo img{vertical-align:middle;max-height:100%}
+	#Top_bar #logo img.logo-sticky,#Top_bar #logo img.logo-mobile{display:none}
+	#Top_bar .text-logo #logo{font-weight:300}
+
+	/* Logo | Advanced */
+	.logo-valign-top #Top_bar #logo img{vertical-align:top}
+	.logo-valign-bottom #Top_bar #logo img{vertical-align:bottom}
+
+	.logo-no-margin #Top_bar .logo{margin-left:0!important;padding:0!important}
+	.logo-no-margin.header-plain #Top_bar .logo{margin:0!important}
+	.logo-no-margin #Header_creative .logo{margin-top:0!important}
+
+	.logo-no-margin.header-fw #Top_bar .column{margin:0;width:100%}
+
+	.logo-overflow #Top_bar .logo{height:60px;position:relative;z-index:198}
+	.logo-overflow #Top_bar #logo{height:auto!important;margin-top:0!important;z-index:199}
+	.logo-overflow #Top_bar #logo img{max-height:none;z-index:200}
+
+	.logo-overflow #Top_bar.is-sticky #logo{height:auto!important}
+	.logo-overflow #Top_bar.is-sticky #logo img:not(.svg){max-height:110px!important}
+
+	.logo-overflow.header-creative #Top_bar:not(.is-sticky) .logo,
+	.logo-overflow.header-stack #Top_bar:not(.is-sticky) .logo{height:auto}
+
+	.logo-no-sticky-padding #Top_bar.is-sticky #logo{padding:0!important}
+	.logo-no-sticky-padding #Top_bar.is-sticky #logo img{max-height:60px!important}
+
+/* Menu wrapper */
+#Top_bar .menu_wrapper {float:left;z-index:201;}
+/* Main Menu ------------------------------------------------------------------------- */
+/* 1st level */
+#Top_bar #menu{z-index:201}
+#Top_bar .menu{z-index:202}
+#Top_bar .menu > li{margin:0;z-index:203;display:block;float:left}
+#Top_bar .menu > li:not(.mfn-megamenu-parent){position:relative}
+#Top_bar .menu > li.hover{z-index:204}
+#Top_bar .menu > li > a{display:block;line-height:60px;padding:15px 0;position:relative}
+#Top_bar .page-menu > li > a{padding:15px 20px}
+#Top_bar .menu > li > a:after{content:"";height:4px;width:100%;position:absolute;left:0;top:-4px;z-index:203;opacity:0;filter:alpha(opacity=0)}
+#Top_bar .menu > li > a span:not(.description){display:block;line-height:60px;padding:0 20px;white-space:nowrap;border-right-width:1px;border-style:solid}
+#Top_bar .menu > li > a span.description{font-size:11px;line-height:12px!important;margin:-12px -15px 0;color:#aaa;font-weight:300;text-align:center;display:block}
+#Top_bar .menu > li:last-child > a span{border:0}
+#Top_bar .menu > li > a:hover{text-decoration:none}

@@ -1,0 +1,18 @@
+  <div class="col-lg-12">
+    <div class="col-lg-3">
+      <input type="hidden" name="productOption[{{i}}]['id']" value="{{option.id}}" class="form-control">
+    </div>
+     <div class="col-lg-3">
+       <label>Option Name</label>
+       <input dir="auto" type="text" name="productOption[{{i}}]['option_name']" value="{{option.option_name}}" class="form-control" required maxlength="255" placeholder="Option Name">
+       <p class="help-block"><em>The maximum number of characters allowed is <strong>255</strong></em></p>
+     </div>
+     <div class="col-lg-3">
+       <label>Option Required</label>
+       <input type="number" name="productOption[{{i}}]['option_required']" id="inputOptionRequired" class="form-control" value = "{{option.option_required}}">
+     </div>
+     <div class="col-lg-3">
+       <label>Option order</label>
+       <input type="number" name="productOption[{{i}}]['option_order']" id="inputOptionOrder" class="form-control" value = "{{option.option_order}}">
+     </div>
+   </div><!-- /.col-lg-12 (nested) -->

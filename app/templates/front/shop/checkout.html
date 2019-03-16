@@ -1,0 +1,96 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+</style>
+{% endblock %}
+{% block content %}
+            <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <h2 class="h2-list">{% if lang.page_title is defined %} {{lang.page_title}} {% endif %}</h2>
+                    </div>
+            </div> 
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                      {% if cartItems is not empty %}
+                      <div id="list-checkout-products">
+                      <form action="#" id="form-checkout-products" method="post" enctype="multipart/form-data">
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputName">{{lang.first_name}}</label><span class='text-danger'>*</span>
+                            <input type="text" class="form-control" name="firstName" id="inputName" required placeholder="Name">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputLastName">{{lang.last_name}}</label><span class='text-danger'>*</span>
+                            <input type="text" class="form-control" name="lastName" id="inputLastName" required placeholder="Last Name">
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="example-tel-input">{{lang.telephone}}</label>
+                            <div class="col-10">
+                              <input class="form-control" type="tel" name="phoneNumber" required  id="example-tel-input">
+                            </div>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label>{{lang.email_address}}<span class='text-danger'>*</span></label>
+                            <input type="email" class="form-control" name="email" required  placeholder="Your Email" id="example-email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>            
+                          </div>                          
+                          <div class="form-row"> 
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="inputPayment" id="inputPaypal" value="inputPaypal">
+                                {{lang.text_paypal}}
+                              </label>
+                            </div>
+                            <div class="form-check disabled">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="inputPayment" id="inputBankTransfer" value="inputBankTransfer" >
+                                {{lang.text_bank}}
+                              </label>
+                            </div> 
+                          </div>                          
+                        </div>
+                        <hr>
+                        <div class="cart-info colore">
+                          <table class="table table-responsive">
+                            <thead>
+                              <tr>
+                                <td>name</td>
+                                <td>total</td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                               {% for cartItem in cartItems %}
+                                    {% include 'front/layout/checkout.html' %}
+                               {% endfor %}
+                            </tbody>
+                          </table>
+
+                          <table class="table table-responsive">
+                            <tfoot>
+                              <tr class="cart-subtotal">
+                                <th>Subtotale</th>
+                                <td><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&euro;</span>{{ subTotal }}</span></td>
+                              </tr>
+                              <tr class="order-total">
+                                <th>Totale</th>
+                                <td><strong><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">&euro;</span>{{ total }}</span></strong> </td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                        <div class="form-group form-actions text-right">
+                            <button type="submit" name="submit" value="submit" class="btn btn-sm btn-primary">{{lang.button_confirm}}</button>
+                        </div>
+                      </form>
+                    </div>
+                    {% endif %}
+                  </div><!-- /.panel-body -->
+                </div><!-- /.panel -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+{% endblock %}

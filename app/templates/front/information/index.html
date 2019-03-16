@@ -1,0 +1,32 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <form action="#" id="form-cart-products" method="post">
+    <div id="products" class="row list-group">
+            <div class="row">
+                    <div class="item  col-xs-12 col-lg-12">
+                        <h2>{{ information.name }}</h2>
+                    </div>
+            <div class="row">
+                <div class="item  col-xs-4 col-lg-4">
+                    <a><img itemprop="image" src="{{setting.url}}assets/img/information/{{information.src}}" alt="" title="" class="colorbox img-responsive thumbnail"></a>
+                    <hr>
+                    <input type="hidden" name="information_id" size="2" value="{{information.id}}" />
+                </div><!-- /item  col-xs-4 col-lg-4 -->
+                <div class="item  col-xs-8 col-lg-8">
+                    {% autoescape 'html' %}
+                        {{ information.content|raw }}
+                    {% endautoescape %}
+                </div><!-- /item  col-xs-8 col-lg-8 -->
+            </div><!-- /Row Block -->
+
+    </div><!-- Products Block -->
+</form>
+</div><!-- Container Block -->
+{% endblock %}

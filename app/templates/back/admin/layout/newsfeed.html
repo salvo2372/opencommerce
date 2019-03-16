@@ -1,0 +1,26 @@
+
+ {% if newsfeed is empty %}
+   <li class='no-data text-center'><span class='text-muted'>There is no news feed!!</span></li>
+ {% else %}
+
+     {% for feed in newsfeed %}
+         <li id="{{feed.id}}" class="left clearfix">
+           <span class="chat-img pull-left">
+             <img src="{{setting.url}}images/profile_pictures/{{feed.profile_picture}}" alt="User Picture" class="img-circle profile-pic-sm">
+           </span>
+           <div class="chat-body clearfix">
+             <div class="header">
+               <strong class="primary-font">{{feed.user_name}}</strong>
+                 <small class="text-muted"><i class="fa fa-clock-o fa-fw"></i>{{feed.date}}</small>
+                 {% if  sessionId  == feed.user_id or getUserRole == 'admin' %}
+                   <span class="pull-right btn-group btn-group-xs">
+                     <a class="btn btn-default edit"><i class="fa fa-pencil"></i></a>
+                     <a class="btn btn-danger delete"><i class="fa fa-times"></i></a>
+                   </span>
+                 {% endif %}
+             </div>
+             <p> autolink da inserire </p>
+           </div>
+         </li>
+     {% endfor %}
+   {% endif %}

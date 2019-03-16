@@ -1,0 +1,54 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="well well-sm">
+        <strong>Category Title</strong>
+        <div class="btn-group">
+            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Grid</a>
+        </div>
+    </div>
+    <div id="products" class="row list-group">
+        {% for row in products|batch(3, 'No Item') %}
+            <div class="row">
+                {% for product in row %}
+                    <div class="item  col-xs-4 col-lg-4">
+                        {% if product.name is not empty %}
+                        <div class="thumbnail" id="{{product.id}}">
+                            <img class="group list-group-image" src="{{ setting.url }}{{ product.src }}" alt="" />
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">{{ product.name }}</h4>
+                                <p class="group inner list-group-item-text">{{ product.summary|truncate(100)  }}</p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <p class="lead">
+                                            &euro;{{ product.price }}</p>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <a class="btn btn-default addcart" href="{{ setting.url }}products/index/{{product.id}}">{{lang.button_description}}</a>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <a class="btn btn-default">{{lang.button_cart}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

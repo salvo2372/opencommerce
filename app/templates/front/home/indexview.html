@@ -1,0 +1,40 @@
+{% extends "front/layout/base.html" %}
+{% block head %} 
+{{ parent() }} 
+<style type="text/css">
+/* Feature list ---------------------------------------------------------------------- */
+.feature_list ul{margin:0;overflow:hidden}
+.feature_list ul li{margin:0;list-style:none;width:25%;float:left;display:block;padding:10px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+.feature_list ul li a{display:block}
+.feature_list ul li a:hover{text-decoration:none}
+.feature_list ul li .icon{width:60px;height:60px;line-height:0;margin-right:10px;display:table-cell;vertical-align:middle;text-align:center}
+.feature_list ul li .icon i{font-size:43px;line-height:60px}
+.feature_list ul li .icon i:before{margin:0}
+.feature_list ul li p{display:table-cell;vertical-align:middle;padding:0 0 0 10px}
+.feature_list hr{margin:0}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div id="products" class="row list-group">
+        {% for row in categories|batch(3, 'No Item') %}
+            <div class="row"> 
+                {% for category in row %}     
+                    <div class="item  col-xs-4 col-lg-4">  
+                        {% if category.id is not empty %}            
+                            <div class="thumbnail">
+                                <img class="group list-group-image" src="{{ setting.url }}{{ category.src }}" alt="" />
+                                <div class="caption">
+                                    <h4 class="group inner list-group-item-heading">{{category.name}}</h4>
+                                    <p class="group inner list-group-item-text">{{category.summary|truncate(100)}}</p> 
+
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}        
+            </div>      
+        {% endfor %}
+    </div>
+</div>                  
+{% endblock %}

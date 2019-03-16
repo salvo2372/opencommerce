@@ -1,0 +1,68 @@
+<div style="font-family:Roboto;font-weight:400;font-style:normal;width:80%;padding:5%;margin:5%;">
+<h2 style="text-transform:uppercase;text-align:center;color:#3b81bf;">{{textBank.order_info}}</h2>
+<table style="width:100%;padding:2%;margin:2%;background-color:#C0C0C0;">
+  <tbody>
+    <tr style="padding:2%;margin:2%;background-color:#ffffff;">
+      <th style="padding:2%;">{{textBank.order}}</th>
+      <td style="padding:2%;">Mark</td>
+
+    </tr>
+    <tr style="padding:2%;margin:2%;background-color:#ffffff;">
+      <th style="padding:2%;">{{textBank.order_register}}</th>
+      <td style="padding:2%;">{{orderinfo.firstName}} {{orderinfo.lastName}}</td>
+
+    </tr>
+    <tr style="padding:2%;margin:2%;background-color:#ffffff;">
+      <th style="padding:2%;">{{textBank.total_cost}}</th>
+      <td style="padding:2%;">{{orderinfo.total}}</td>
+
+    </tr>
+    <tr style="padding:2%;margin:2%;background-color:#ffffff;">
+      <th style="padding:2%;">{{textBank.payment_state}}</th>
+      <td style="padding:2%;">{{orderinfo.paymentState}}</td>
+    </tr> 
+    <tr style="padding:2%;margin:2%;background-color:#ffffff;">
+      <th style="padding:2%;">{{textBank.payment_method}}</th>
+      <td style="padding:2%;">{{orderinfo.paymentMethod}}</td>
+
+    </tr>       
+  </tbody>
+</table>
+</div>
+<div class="width:100%;padding:10%;margin:40%;">
+	<img src="{{orderinfo.url}}public/assets/img/minicruise.png" />
+</div>
+<div style="font-family:Roboto;font-weight:400;font-style:normal;width:80%;padding:5%;margin:5%;">
+<h2 style="text-transform:uppercase;text-align:center;color:#3b81bf;">{{textBank.detail_order}}</h2>
+<table style="width:100%;padding:2%;margin:2%;background-color:#C0C0C0;">
+   {% for cartItem in orderinfo.cartItems %}
+        <tr style="padding:2%;margin:2%;background-color:#ffffff;">
+        	<th style="padding:2%;text-align:center;">{{textBank.element}}</th>
+        	<th style="padding:2%;text-align:center;">{{textBank.quantity}}</th>
+        	<th style="padding:2%;text-align:center;">{{textBank.total_import}}</th>
+        <tr>
+
+            <td style="padding:2%;margin:2%;background-color:#ffffff;text-align:left;">
+            	<strong>{{cartItem.name}}</strong><br>
+                  {% if cartItem.options is empty %}
+                      Not Option Selected
+                  {% else %}
+                      {% for key, value in cartItem.options %}
+                        <em>
+                          {{ key }} : {{ value }}{# var won't be escaped #}
+                        </em>
+                        <br />
+                      {% endfor %}
+                  {% endif %}
+            </td>
+
+            <td style="padding:2%;margin:2%;background-color:#ffffff;text-align:center;">
+            	{{ cartItem.quantity }}
+            </td>
+            <td style="padding:2%;margin:2%;background-color:#ffffff;text-align:center;">
+                {{cartItem.total}}
+            </td>
+        </tr>
+    {% endfor %}    
+</table>	
+</div>

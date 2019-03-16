@@ -1,0 +1,28 @@
+							{% if emptyPagination==false %}
+
+                                {% set linkExists = (linkPagination is empty) ? false : true %}
+                                {% set urlSet = (linkPagination is empty) ? '' :setting.url ~ linkPagination ~ '/viewall?page=' %}
+
+								{% if totalPagesPagination > 1 %}
+									{% if hasPreviousPage==true %}
+									{% set linkPrev = (linkExists==false)? 'javascript:void(0)' : urlSet ~ (currentPagePagination - 1) %}
+			                            <li><a href='{{linkPrev}}' class='prev' ><i class='fa fa-angle-left'></i></a></li>						
+
+									{% endif %}
+										{% set j =  (currentPagePagination - 4) > 1 ? (currentPagePagination-4) : 1 %} 
+
+										{% set end =  (currentPagePagination + 4) < totalPagesPagination ? (currentPagePagination + 4) : totalPagesPagination %} 									
+										{% for i in j..end %}
+											{% set link = (linkExists==false)? 'javascript:void(0)' : urlSet ~ i %}
+											{% if currentPagePagination == i %}
+												<li class='active'><a href='{{link}}' >{{ i }}</a></li>
+											{% else %}
+												<li><a href='{{link}}'>{{ i }}</a></li>
+											{% endif %}
+										{% endfor %}
+									{% if hasNextPage==true %}
+										{% set linkNext = (linkExists==false)? 'javascript:void(0)' : urlSet ~ (currentPagePagination + 1) %}
+			                            <li><a href='{{linkNext}}' class='next' ><i class='fa fa-angle-right'></i></a></li>						
+									{% endif %}										
+								{% endif %}
+							{% endif %}

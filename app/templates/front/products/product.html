@@ -1,0 +1,69 @@
+{% extends "front/layout/base.html" %}
+{% block head %} 
+{{ parent() }} 
+<style type="text/css">
+/* Feature list ---------------------------------------------------------------------- */
+.feature_list ul{margin:0;overflow:hidden}
+.feature_list ul li{margin:0;list-style:none;width:25%;float:left;display:block;padding:10px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+.feature_list ul li a{display:block}
+.feature_list ul li a:hover{text-decoration:none}
+.feature_list ul li .icon{width:60px;height:60px;line-height:0;margin-right:10px;display:table-cell;vertical-align:middle;text-align:center}
+.feature_list ul li .icon i{font-size:43px;line-height:60px}
+.feature_list ul li .icon i:before{margin:0}
+.feature_list ul li p{display:table-cell;vertical-align:middle;padding:0 0 0 10px}
+.feature_list hr{margin:0}
+.navbar-default .navbar-nav ul li a.active {
+    background-color: green;
+}
+.navbar-default{
+    background-color: black;
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="well well-sm">
+        <strong>Category Title</strong>
+        <div class="btn-group">
+            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Grid</a>
+        </div>
+    </div>
+    <div id="products" class="row list-group">
+        {% for row in products|batch(3, 'No Item') %}
+            <div class="row">
+                {% for product in row %}     
+                    <div class="item  col-xs-4 col-lg-4">
+                        {% if product.name is not empty %}
+                        <div class="thumbnail">
+                            <img class="group list-group-image" src="{{ setting.url }}{{ product.src }}" alt="" />
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">{{ product.name }}</h4>
+                                <p class="group inner list-group-item-text">{{ product.summary|truncate(100)  }}</p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <p class="lead">
+                                            $21.000</p>
+                                    </div>                                    
+                                    <div class="col-xs-12 col-md-6">
+                                    </div>                                  
+                                </div> 
+                                <div class="row">                                   
+                                    <div class="col-xs-12 col-md-6">
+                                        <a class="btn btn-success" href="">Add to cart</a>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <a class="btn btn-primary" href="{{ setting.url }}products/viewfront/{{product.id}}">Description</a>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}  
+            </div>      
+    {% endfor %}    
+    </div>
+</div>                  
+{% endblock %}

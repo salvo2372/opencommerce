@@ -1,0 +1,39 @@
+
+        <tr id="{{cartItem.id}}">
+            <td class="image">
+              <image src="{{ setting.url }}assets/img/products/{{ cartItem.src }}" alt="" title="" style="width:100px;height:100px;" />
+            </td>
+            <td><strong>{{cartItem.name}}</strong><br>
+                  {% if cartItem.options is empty %}
+                      Not Option Selected
+                  {% else %}
+                      {% for key, value in cartItem.options %}
+                        <em>
+                          {{ key }} : {{ value }}{# var won't be escaped #}
+                        </em>
+                        <br />
+                      {% endfor %}
+                  {% endif %}
+            </td>
+
+
+            <td class="cart-quantity">
+              <div class="quantity">
+                <input type="number" step="1" min="0" max name="quantity" value="{{cartItem.quantity}}" title="Qté" class="input-text qty text" pattern="[0-9]*" inputmode="numeric" /> 
+              </div>
+            </td>
+            <td class="price">{{cartItem.price}}</td>
+            <td class="total">
+                     {{cartItem.total}}
+            </td>
+                <td class="text-center">
+                    <span class="pull-right btn-group btn-group-xs">
+                        <a  class="btn btn-default update">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                          <a class="btn btn-danger delete">
+                            <i class="fa fa-times"></i>
+                          </a>
+                    </span>
+                </td>
+        </tr>

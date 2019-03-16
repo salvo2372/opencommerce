@@ -1,0 +1,65 @@
+{% extends "back/admin/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+        <div id="page-wrapper">
+            <div class="row">
+               <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-sm-10 col-md-10 col-lg-10">
+                    <h1 class="page-header">{% if setting.page_title is defined %} {{ setting.page_title}} {% endif %}</h1>
+                </div>                <!-- /.col-lg-10 -->
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2"></div>
+                <div class="col-sm-10 col-md-10 col-lg-10">
+                    <div id="view-post" class="panel panel-default">
+                            {% if action is empty %}
+                                {% include 'back/admin/layout/information.html' %}
+                            {% elseif action=='update' %}
+                                {% include 'back/admin/layout/informationUpdateForm.html' %}
+                            {% endif %}
+                            <hr>
+                            <div class="text-right">
+                                <ul class="pagination">
+
+                                </ul>
+                            </div>
+                    </div>
+                    <!-- view-post -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comment"></i> Comments
+                        </div>
+                        <div class="panel-body">
+                            <ul id="list-comments" class="chat">
+                                <!--ritorna getallcomments tutti i commenti -->
+                            </ul>
+
+                            <hr>
+                            <form action="#" id="form-create-comment" method="post">
+                                <div class="form-group">
+                                    <textarea dir="auto" rows="3" maxlength="300" name="content" required class="form-control" placeholder="Write your Comment"></textarea>
+                                    <p class="help-block"><em>The maximum number of characters allowed is <strong>300</strong></em></p>
+                                </div>
+                                <div class="form-group form-actions text-right">
+                                    <button type="submit" name="submit" value="submit" class="btn btn-sm btn-success">
+                                        <i class="fa fa-check"></i> Comment
+                                    </button>
+                                </div>
+                            </form>
+                            <!-- View More -->
+                                <div class="text-center">
+                                    <ul class="pagination">
+                                    <!--paginazione-->
+                                    </ul>
+                                </div><!-- END View More -->
+                        </div><!-- /.panel-body -->
+                    </div>
+                </div><!-- col-sm-8 col-lg-8 -->
+        </div><!-- /.row -->
+    </div><!-- /#page-wrapper -->
+{% endblock %}

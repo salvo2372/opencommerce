@@ -1,0 +1,16 @@
+      <div class="row">
+            <div class="col-md-12">
+                <h1 class="panel-title">{% if lang.page_title is defined %} {{lang.page_title}} {% endif %}</h1>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                      <form action="{{setting.url}}/shop/success" method="post">
+                        <h2>Informazioni per effettuare i bonifico</h2>
+                        <p>Bonifico bancario sul seguente conto corrente bancario<hr>YOUR NAME FOR THE ACCOUNT BANKING<hr>YOUR BANK NAME<hr>CITY BANK<hr>IBAN: YOUR IBAN<hr>BIC: YOUR BIC<hr>Il tuo ordine non saarà evaso fino a ricevimento del pagamento</p>
+                        <div class="form-group form-actions text-right">
+                            <button type="submit" name="submit" value="submit" class="btn btn-sm btn-primary">INVIA</button>
+                        </div>
+                      </form>
+                  </div><!-- /.panel-body -->
+                </div><!-- /.panel -->
+            </div><!-- /.col-md-12 -->
+    </div><!-- /.row -->

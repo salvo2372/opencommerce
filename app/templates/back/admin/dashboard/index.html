@@ -1,0 +1,157 @@
+{% extends "back/admin/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+<div id="page-wrapper">
+        <div class="row">
+            <div class="col-sm-2 col-lg-2"></div>                
+            <div class="col-lg-10">
+                    <h1 class="page-header">Dashboard</h1>
+            </div><!-- /.col-lg-10 -->
+        </div> <!-- /.row -->
+        <div class="row">
+            <div class="col-sm-2 col-lg-2"></div>
+            <div class="col-sm-10 col-lg-10"> 
+                <div class="row">               
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-rss fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">{{ stats.newsfeed}}</div>
+                                        <div>News Feed</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{{ setting.url }}NewsFeed">
+                            <div class="panel-footer">
+                                 <span class="pull-left">Share</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-wechat fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{ stats.posts}}</div>
+                                    <div>Posts</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ setting.url }}posts/newPost">
+                            <div class="panel-footer">
+                                <span class="pull-left">New Post</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-cloud-upload fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{stats.files}}</div>
+                                    <div>Files</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ setting.url }}Files">
+                            <div class="panel-footer">
+                                <span class="pull-left">Upload File</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{ stats.users}}</div>
+                                    <div>Users</div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if(role == "admin") %}
+                            <a href="{{ setting.url }}Admin/Users">
+                        {% else %}
+                            <a href="#">
+                        {% endif %}
+                            <div class="panel-footer">
+                                <span class="pull-left">
+                                    {% if(role == "admin") %}
+                                       View All
+                                    {% endif %}
+                                </span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div> 
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="pull-right">
+                            <a href="javascript:void(0)" class="label label-danger">Live</a>
+                        </div>
+                        <i class="fa fa-flash fa-fw"></i> Latest Updates
+                    </div>
+                        <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div id="latest-updates" class="list-group">
+                            {% if updates is empty %}
+                            <div class='list-group-item text-center no-data'>
+                                <span class="text-muted">There is no updates yet!</span>
+                            </div>
+                            {% else %}
+
+                            {% for update in updates %}
+                                {% set logo = '' %}
+
+                                <div class="list-group-item">
+                                    {% if update.target == 'newsfeed' %}
+                                        {% set logo = "<i class='fa fa-rss fa-fw'></i>" %}
+                                    {% elseif update.target == 'posts' %}
+                                        {% set logo = "<i class='fa fa-wechat fa-fw'></i>" %}
+                                    {% endif %}
+                                    {% autoescape %}
+                                        {{ logo|raw }} {# var won't be escaped #}
+                                    {% endautoescape %}
+
+                                {{ update.title }}<br>&nbsp;&nbsp;
+                                    <strong class="text-primary small">By {{ update.name }}</strong>
+                                    <span class="pull-right text-muted small"><em>{{ update.date }}</em></span>
+                                </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div> <!-- /.list-group -->
+                    </div><!-- /.panel-body -->
+                </div><!-- /.panel -->
+            </div><!-- /.col-lg-10-->        
+        </div><!-- /.row -->
+{% endblock %}

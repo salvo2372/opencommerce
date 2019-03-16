@@ -1,0 +1,30 @@
+                                        {% if users is empty %}
+                                            <tr class='no-data'><td colspan='4' class='text-muted text-center'>There is no users</td></tr>
+                                        {% else %}
+
+                                            {% for user in users %}
+                                                <tr id="{{user.id}}">
+                                                    <td><span class="text-primary">{{ user.name }}</span></td>
+                                                    <td><span class="label label-primary">{{ user.role }}</span></td>
+                                                    <td>
+                                                    {% if user.email is empty %}
+                                                        <td class='text-danger'>Not Available</td>
+                                                    {% else %}
+                                                        {% autoescape %}
+                                                            {{ user.email|raw }} {# var won't be escaped #}
+                                                        {% endautoescape %}
+                                                    {% endif %}
+                                                    </td>
+                                                        <td class="text-center">
+                                                            <span class="pull-right btn-group btn-group-xs">
+                                                                <a href="{{ setting.url }}admin/viewUser/{{user.id}}"  class="btn btn-default">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                {% if userLogged.id!=user.id %}
+                                                                <a class="btn btn-danger delete"><i class="fa fa-times"></i></a>
+                                                                {% endif %}
+                                                            </span>
+                                                        </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}

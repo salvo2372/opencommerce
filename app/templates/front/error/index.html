@@ -1,0 +1,16 @@
+{% extends "front/layout/base.html" %}
+{% block head %} 
+{{ parent() }} 
+<style type="text/css"> 
+
+</style> 
+{% endblock %}
+{% block content %}
+        <div class="row">
+            <div class="col-md-12 col-lg-12"> 
+                <h2 class="intro-text text-center"><strong>{% if setting.page_title is defined %} {{ setting.page_title }} {% endif %}</strong></h2>
+                <hr>    
+
+            </div>    
+        </div>                   
+{% endblock %}

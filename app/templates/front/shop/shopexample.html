@@ -1,0 +1,282 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+.important { color: #336699; }
+.postul {width:100%;background-color:none;margin:0 auto;}
+
+
+
+.postul li{width:80%;background-color:none;}
+
+.postul li a{
+
+    display:block;
+
+    padding: 5px 0;
+
+    color:black;
+
+    }
+
+.postul li a:hover{
+
+    display:block;
+
+    padding: 5px 0;
+
+    color:#CC0000;
+
+    }
+
+ table {
+
+    *border-collapse: collapse; /* IE7 and lower */
+
+    border-spacing: 0px;
+
+    width: 100%;
+
+
+
+}
+
+.bordered {
+
+    border: solid #ccc 1px;
+
+    -moz-border-radius: 6px;
+
+    -webkit-border-radius: 6px;
+
+    border-radius: 6px;
+
+    -webkit-box-shadow: 0 1px 1px #ccc;
+
+    -moz-box-shadow: 0 1px 1px #ccc;
+
+    box-shadow: 0 1px 1px #ccc;
+
+}
+
+.bordered tr{
+
+    background-color: #eed5b7;
+
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ffe4c4), to(#eed5b7));
+
+    background-image: -webkit-linear-gradient(top, #ffe4c4, #eed5b7);
+
+    background-image:    -moz-linear-gradient(top, #ffe4c4, #eed5b7);
+
+    background-image:     -ms-linear-gradient(top, #ffe4c4, #eed5b7);
+
+    background-image:      -o-linear-gradient(top, #ffe4c4, #eed5b7);
+
+    background-image:         linear-gradient(top, #ffe4c4, #eed5b7);
+
+    -webkit-box-shadow: 0 1px 0 rgba(255,228,196,.8) inset;
+
+    -moz-box-shadow:0 1px 0 rgba(255,228,196,.8) inset;
+
+    box-shadow: 0 1px 0 rgba(255,228,196,.8) inset;
+
+    border-top: none;
+
+    text-shadow: 0 1px 0 rgba(255,228,196,.5);
+
+    }
+
+ .bordered tr:hover {
+
+    /*background: #fbf8e9;*/
+
+    background: #cdb79e;
+
+    -o-transition: all 0.1s ease-in-out;
+
+    -webkit-transition: all 0.1s ease-in-out;
+
+    -moz-transition: all 0.1s ease-in-out;
+
+    -ms-transition: all 0.1s ease-in-out;
+
+    transition: all 0.1s ease-in-out;
+
+}
+
+
+
+.bordered td, .bordered th {
+
+    border-left: 1px solid #ccc;
+
+    border-top: 1px solid #ccc;
+
+    padding: 10px;
+
+    text-align: left;
+
+}
+
+
+
+.bordered th {
+
+    background-color: #dce9f9;
+
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+
+    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+
+    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+
+    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+
+    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+
+    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+
+    -webkit-box-shadow: 0 1px 0 rgba(121,81,121,.8) inset;
+
+    -moz-box-shadow:0 1px 0 rgba(121,81,121,.8) inset;
+
+    box-shadow: 0 1px 0 rgba(121,81,121,.8) inset;
+
+    border-top: none;
+
+    text-shadow: 0 1px 0 rgba(121,81,121,.5);
+
+}
+
+
+
+.bordered td:first-child, .bordered th:first-child {
+
+    border-left: none;
+
+}
+
+
+
+.bordered th:first-child {
+
+    -moz-border-radius: 6px 0 0 0;
+
+    -webkit-border-radius: 6px 0 0 0;
+
+    border-radius: 6px 0 0 0;
+
+}
+
+
+
+ .bordered th:last-child {
+
+    -moz-border-radius: 0 6px 0 0;
+
+    -webkit-border-radius: 0 6px 0 0;
+
+    border-radius: 0 6px 0 0;
+
+}
+
+
+
+.bordered th:only-child{
+
+    -moz-border-radius: 6px 6px 0 0;
+
+    -webkit-border-radius: 6px 6px 0 0;
+
+    border-radius: 6px 6px 0 0;
+
+}
+
+
+
+.bordered tr:last-child td:first-child {
+
+    -moz-border-radius: 0 0 0 6px;
+
+    -webkit-border-radius: 0 0 0 6px;
+
+    border-radius: 0 0 0 6px;
+
+}
+
+
+
+.bordered tr:last-child td:last-child {
+
+    -moz-border-radius: 0 0 6px 0;
+
+    -webkit-border-radius: 0 0 6px 0;
+
+    border-radius: 0 0 6px 0;
+
+}
+</style>
+{% endblock %}
+{% block content %}
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="panel-title">{% if setting.page_title is defined %} {{setting.page_title}} {% endif %}</h1>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+  <form action="" id="list-cart-products" method="post" enctype="multipart/form-data">
+    <div class="cart-info colore">
+    {% if cartItems is empty %}
+        <tr class='no-data'><td colspan='3' class='text-muted text-center'>Non ci sono prodotti nel carrello!</td></tr>
+
+    {% else %}
+      <table class="table table-responsive bordered postul">
+        <thead>
+          <tr>
+            <td>image</td>
+            <td>name</td>
+            <td>quantity</td>
+            <td>price</td>
+            <td>total</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+       {% for cartItem in cartItems %}
+                <tr>
+                  <td class="image">
+                    <image src="{{ setting.url }}{{ cartItem.src }}" alt="" title="" style="width:50px;height:50px;" />
+                  </td>
+                    <td class="name">
+                      <a href="{{ setting.url }}posts/view/">
+                            <strong>{{ cartItem.name }}</strong>
+                      </a><br>
+                      <div>
+                        {{cartItem.options.name }}
+                      </div>
+                    </td>
+                    <td class="quantity">{{cartItem.quantity}}</td>
+                    <td class="price">{{cartItem.price}}</td>
+                    <td class="total">{{cartItem.total}}</td>
+                    <td class="text-center">
+                            <span class="pull-right btn-group btn-group-xs">
+                                <a class="btn btn danger delete">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </span>
+                    </td>
+                </tr>
+       {% endfor %}
+    {% endif %}
+        </tbody>
+      </table>
+    </div>
+                <div class="form-group form-actions text-right">
+                     <button type="submit" name="submit" value="submit" class="btn btn-sm btn-primary">Checkout</button>
+                </div>
+  </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

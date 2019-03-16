@@ -1,0 +1,64 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+        <div class="row">
+          <div class="col-md-12 col-lg-12">
+            <h2 class="intro-text text-center"><strong>{% if lang.page_title is defined %} {{ lang.page_title }} {% endif %}</strong></h2>
+            <p class="text-center prefaction">
+              {{lang.heading_text}}
+            </p>
+          </div>
+            <div class="col-md-12 col-lg-12">
+                <div class="product-wrapper">
+                    <div class="products">
+                        {% for row in products|batch(3, 'No Item') %}
+                        <div class="row">
+                            {% for product in row %}
+                            {% if (product.target == "Milazzo") %}
+                            <div class="item col-xs-12 col-md-6 col-lg-4">
+                                <div class="thumbnail product">
+                                    <div class="hovereffect">
+                                        <div class="product-image">
+                                          <img class="img-responsive" src="{{ setting.url }}assets/img/products/{{ product.src }}" alt="{{product.name}}" title="{{product.name}}">
+                                        </div>
+                                        <div class="overlay">
+                                            <h2>{{lang.minicruise}}</h2>
+                                            <a class="info" href="{{setting.url}}products/index/{{product.id}}">{{lang.detail}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="caption header">
+                                        <h4 class="group inner list-group-item-heading h4-short">{{ product.name }}</h4>
+                                        <p class="group inner list-group-item-text p-short">
+                                            {% autoescape 'html' %}
+                                                {{ product.summary|truncate(100)|raw }}
+                                            {% endautoescape %}
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-6 col-lg-4 product-action">
+                                                <a class="btn btn-default button" href="{{ setting.url }}products/index/{{product.id}}">{{lang.button_description}}</a>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.caption header -->
+                                </div><!-- /.thumbnail -->
+                            </div><!-- /.item -->
+                            {% endif %}
+                            {% endfor %}
+                        </div><!-- /.row -->
+                        {% endfor %}
+                    </div><!-- /.products -->
+                </div><!-- /.products-wrapper -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+{% endblock %}
+{% block footerleft %}
+<div class="footer_blockleft">
+  <a href="http://www.domusmusia.com/it/" class="footer_a">
+    <span>B&B Domus Musia</span>
+  </a>
+</div>
+{% endblock %}

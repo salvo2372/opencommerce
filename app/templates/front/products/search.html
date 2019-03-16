@@ -1,0 +1,82 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12">
+        <h1 class="page-header">{% if lang.page_title is defined %} {{ lang.page_title}} {% endif %}</h1>
+        <div class="well well-sm">
+            <strong>Category Title</strong>
+            <div class="btn-group">
+                <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+                </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                    class="glyphicon glyphicon-th"></span>Grid</a>
+            </div>
+        </div>
+    </div><!-- /.col-lg-12 -->
+  </div><!-- /.row -->
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-xs-12 product-wrapper>
+        <div id="list-add-tocart" class="row list-group products">
+            {% for row in products|batch(3, 'No Item') %}
+                <div class="row">
+                    {% for product in row %}
+                        <div class="item  col-xs-12 col-md-6 col-lg-4">
+                            {% if product.name is not empty %}
+                                <div id="{{product.id}}" class="product">
+                                        <div class="thumbnail">
+                                            <div class="hovereffect">
+                                                <div class="product-image">
+                                                   <img class="img-responsive" src="{{ setting.url }}assets/img/products/{{ product.src }}" alt="{{product.name}}" title="{{product.name}}">
+                                                </div>
+                                                <div class="overlay">
+                                                    <h2>PRODOTTO</h2>
+                                                    <a class="info" href="{{setting.url}}products/index/{{product.id}}">DETTAGLI</a>
+                                                </div>
+                                            </div>
+                                            <div class="caption header">
+                                                <h4 class="group inner product-name list-group-item-heading h4-short">{{ product.name }}</h4>
+                                                <p class="group inner list-group-item-text p-short">
+                                                    {% autoescape 'html' %}
+                                                        {{ product.summary|truncate(100)|raw }}
+                                                    {% endautoescape %}
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-6">
+                                                        <div class="pricing-box">
+                                                            <div class="plan-header">
+                                                                <p class="product-price">
+                                                                      {{product.price}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-6">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-6 product-action">
+                                                        <a class="btn btn-default button" href="{{ setting.url }}products/index/{{product.id}}">{{lang.button_description}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+        {% endfor %}
+        <hr>
+        <div class="text-right">
+            <ul class="pagination">
+               {% include 'back/admin/layout/pagination/search.html' %}
+            </ul>
+        </div>
+      </div><!-- /#list-add-tocart -->
+    </div><!-- /.lg-12 -->
+  </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}

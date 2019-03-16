@@ -1,0 +1,189 @@
+{% extends "back/admin/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+body {
+    background-color: #f8f8f8;
+}
+
+.navbar-top-links {
+    margin-right: 0;
+}
+
+.navbar-top-links li {
+    display: inline-block;
+}
+
+.navbar-top-links li:last-child {
+    margin-right: 15px;
+}
+
+.navbar-top-links li a {
+    padding: 15px;
+    min-height: 50px;
+}
+
+.navbar-top-links .dropdown-menu li {
+    display: block;
+}
+
+.navbar-top-links .dropdown-menu li:last-child {
+    margin-right: 0;
+}
+
+.navbar-top-links .dropdown-menu li a {
+    padding: 3px 20px;
+    min-height: 0;
+}
+
+.navbar-top-links .dropdown-menu li a div {
+    white-space: normal;
+}
+
+.navbar-top-links .dropdown-messages,
+.navbar-top-links .dropdown-tasks,
+.navbar-top-links .dropdown-alerts {
+    width: 310px;
+    min-width: 0;
+}
+
+.navbar-top-links .dropdown-messages {
+    margin-left: 5px;
+}
+
+.navbar-top-links .dropdown-tasks {
+    margin-left: -59px;
+}
+
+.navbar-top-links .dropdown-alerts {
+    margin-left: -123px;
+}
+
+.navbar-top-links .dropdown-user {
+    right: 0;
+    left: auto;
+}
+.sidebar .sidebar-nav.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.sidebar .sidebar-search {
+    padding: 15px;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sidebar ul li a.active {
+    background-color: #eee;
+}
+
+.sidebar .arrow {
+    float: right;
+}
+
+.sidebar .fa.arrow:before {
+    content: "\f104";
+}
+
+.sidebar .active>a>.fa.arrow:before {
+    content: "\f107";
+}
+
+.sidebar .nav-second-level li,
+.sidebar .nav-third-level li {
+    border-bottom: 0!important;
+}
+
+.sidebar .nav-second-level li a {
+    padding-left: 37px;
+}
+
+.sidebar .nav-third-level li a {
+    padding-left: 52px;
+}
+.panel-primary{
+    background-color:#336BFF;
+}
+.panel-green{
+    background-color:#A8FF33;
+}
+.panel-yellow{
+    background-color:#FFF033;
+}
+.panel-red{
+    background-color:#FF3F33;
+}
+.huge {
+    font-size: 40px;
+}
+@media(min-width:768px) {
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        margin-top: 51px;
+    }
+
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+    }
+}
+</style>
+{% endblock %}
+{% block content %}
+<div id="page-wrapper">
+    	<div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-10">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-wechat"></i>{% if setting.page_title is defined %} {{ setting.page_title}} {% endif %}
+                            <div class="pull-right">
+                                <button
+                                    class="btn btn-success btn-xs" onclick="window.location='{{ setting.url }}information/newinformation'"
+                                    <i class="fa fa-plus"></i> New Information
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="list-posts" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Author</th>
+                                            <th>Infomation</th>
+                                            <th  class="text-center"><i class="fa fa-comment"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+									    {% if informations is empty %}
+									        <tr class='no-data'><td colspan='3' class='text-muted text-center'>There is no information!</td></tr>
+
+									    {% else %}
+									            {% for information in informations %}
+									                <tr>
+									                    <td style="width: 20%;"><strong>{{information.user_name}}</strong><br><em>{{ information.date}}</em><br></td>
+									                    <td>
+									                        <a href="{{ setting.url }}information/view/{{information.id}}">
+									                            <strong>{{ information.title }}</strong>
+									                        </a><br>
+									                        <span class="text-muted">{{ information.summary }}</span>
+									                    </td>
+									                </tr>
+									            {% endfor %}
+									    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

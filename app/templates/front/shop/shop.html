@@ -1,0 +1,64 @@
+{% extends "front/layout/base.html" %}
+{% block head %}
+{{ parent() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+{% block content %}
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+               <h2 class="h2-list">{% if lang.page_title is defined %} {{lang.page_title}} {% endif %}</h2>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                      {% if cartItems is empty %}
+                          <tr class='no-data'><td colspan='3' class='text-muted text-center'>{{lang.textitemcart}}</td></tr>
+
+                      {% else %}
+                      <form action="{{setting.url}}shop/checkout" id="list-cart-products" method="post" enctype="multipart/form-data">
+                        <div class="cart-info colore">
+                          <table class="table table-responsive table_cart">
+                            <thead>
+                              <tr>
+                                <td></td>
+                                <td class="product-name">{{lang.product_name}}</td>
+                                <td>{{lang.product_quantity}}</td>
+                                <td>{{lang.product_price}}</td>
+                                <td>{{lang.product_total}}</td>
+                                <td></td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                               {% for cartItem in cartItems %}
+                                    {% include 'front/layout/cart.html' %}
+                               {% endfor %}
+                            </tbody>
+                          </table>
+
+                          <table class="table table-responsive">
+                            <tfoot>
+                              <tr class="cart-subtotal">
+                                <th>Subtotale</th>
+                                <td><span class="woocommerce-Price-amount amount-subtotal"><span class="woocommerce-Price-currencySymbol">&euro;</span>{{ subTotal }}</span></td>
+                              </tr>
+                              <tr class="order-total">
+                                <th>Totale</th>
+                                <td><strong><span class="woocommerce-Price-amount amount-total"><span class="woocommerce-Price-currencySymbol">&euro;</span>{{ total }}</span></strong> </td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                        <div class="form-group form-actions text-right">
+                            <button type="submit" name="submit" value="submit" class="btn btn-sm btn-primary">{{lang.button_checkout}}</button>
+                        </div>
+                      </form>
+                    {% endif %}
+                  </div><!-- /.panel-body -->
+                </div><!-- /.panel -->
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+{% endblock %}

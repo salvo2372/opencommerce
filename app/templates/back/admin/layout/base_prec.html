@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+{% block head %}
+    <meta charset="UTF-8">
+    <title>{{ setting.page_title }}</title>
+   <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ setting.url }}public/dist/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="{{ setting.url }}public/dist/css/shortcode.css">-->
+    <link rel="stylesheet" href="{{ setting.url }}public/dist/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- CSS -->    
+    <link rel="stylesheet" href="{{ setting.url }}dist/css/backcss.css">    
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="http://localhost/altervista/public/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{{ setting.url }}assets/js/ie-emulation-modes-warning.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js""></script>  
+    <link rel="stylesheet" href="{{ setting.url }}public/dist/js/jquery-ui/jquery-ui.min.css">    
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    <!--<script src="http://localhost/altervista/public/js/jquery.min.js"></script>-->
+    <script src="{{ setting.url }}dist/js/moment.js"></script>    
+    <script src="{{ setting.url }}dist/js/bootstrap.min.js"></script>
+    <!--<script src="{{ setting.url }}dist/js/admin.js"></script>-->
+    <!--<script src="{{ setting.url }}dist/js/main.js"></script>-->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+    <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+    <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">  
+    <script type="text/javascript" src='{{setting.url}}dist/ckeditor/ckeditor.js'></script>
+    <script type="text/javascript">
+       CKEDITOR.replace( 'myTextarea', {
+          extraPlugins : 'autogrow',
+          autoGrow_maxHeight : 400
+       });
+    </script>    
+{% endblock %}
+</head>
+<body>
+    <div id="wrapper">
+    <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Hello,<strong>{% if userLogged.name is defined %}{{ userLogged.name }}{% endif %}</strong> <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="{{ setting.url }}user/profile"><i class="fa fa-user fa-fw"></i> Profile</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="{{ setting.url }}login/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+            <li id="logo" class="text-center">
+                            <a href="">
+                <img src="{{ setting.url }}public/assets/img/background.png" class="img-circle" style="width: 220px; height: 150px;">
+              </a>
+                        </li>
+                        <li id="dashboard" class="active">
+                            <a href="{{ setting.url }}user/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li id="newsfeed">
+                            <a href="{{ setting.url }}newsFeed/index"><i class="fa fa-rss fa-fw"></i> News Feed
+                            <span class="label label-danger">newsfeed</span></a>
+                        </li>
+                        <li id="posts">
+                            <a href="{{ setting.url  }}posts/index"><i class="fa fa-wechat fa-fw"></i> Posts
+                            <span class="label label-danger">posts</span></a>
+                        </li>
+                        <li id="files">
+                            <a href="{{ setting.url }}files"><i class="fa fa-cloud-upload fa-fw"></i> Files
+                            <span class="label label-danger">files</span></a>
+                        </li>
+                        <li id="bugs">
+                            <a href="{{ setting.url }}user/Bugs"><i class="fa fa-bug fa-fw"></i> Bugs</a>
+                        </li>
+                        {% if ( getUserRole == 'admin') %}
+                          <li id="users">
+                            <a href="{{ setting.url }}admin/users"><i class="fa fa-users fa-fw"></i> Users</a>
+                          </li>
+                          <li id="products">
+                            <a href="{{ setting.url }}products/viewall"><i class="fa fa-users fa-fw"></i> Products</a>
+                          </li>
+                          <li id="information">
+                            <a href="{{ setting.url }}information/viewall"><i class="fa fa-users fa-fw"></i> Information</a>
+                          </li>
+                          <li id="ctegory">
+                            <a href="{{ setting.url }}category/viewall"><i class="fa fa-users fa-fw"></i> Category</a>
+                          </li>                          
+                          <li id="backups">
+                            <a href="{{ setting.url }}admin/backups"><i class="fa fa-database fa-fw"></i> Backups</a>
+                          </li>
+                        {% endif %}
+                        <li>
+                            <a href="#" target="_blank" class="btn btn-social-icon btn-github"><i class="fa fa-github fa-2x"></i><br>Support!</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+        <footer class="panel-footer clearfix">
+            <div class="pull-right">
+              Developed <i class="fa fa-heart text-danger"></i> by <a href="" target="_blank">Scolaro Salvatore</a>
+            </div>
+            <div class="pull-left">
+              &copy; All rights reserved
+            </div>
+        </footer>
+
+   </div>
+  <!-- /#wrapper -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!--<script src="http://localhost/altervista/public/js/jquery.min.js"></script>-->
+    <script src="{{ setting.url }}dist/js/bootstrap.min.js"></script>
+    <script>
+
+    $(document).ready(function(){
+    var config = {{config|raw}};
+
+
+
+    var ajax = {
+
+    /**
+     * Default ajax function.
+     *
+     * @param  string   url             URL to send ajax call
+     * @param  mixed    postData        data that will be sent to the server(PHP)
+     * @param  function callback        Callback Function that will be called upon success or failure
+     * @param  string   spinnerBlock    An element where the spinner will be next to it
+     *
+     */
+    send: function(url, postData, callback, spinnerBlock){
+
+        var spinnerEle = null;
+
+        $.ajax({
+            url: config.root + url,
+            type: "POST",
+            data: helpers.appendCsrfToken(postData),
+            dataType: "json",
+            beforeSend: function() {
+
+                // create the spinner element, and add it after the spinnerBlock
+                spinnerEle = $("<i>").addClass("fa fa-spinner fa-3x fa-spin spinner").css("display", "none");
+                $(spinnerBlock).after(spinnerEle);
+
+                // run the spinner
+                ajax.runSpinner(spinnerBlock, spinnerEle);
+            }
+        })
+            .done(function(data) {
+                // stopSpinner(spinnerBlock);
+                callback(data);
+            })
+            .fail(function(jqXHR) {
+                // stopSpinner(spinnerBlock);
+                switch (jqXHR.status){
+                    case 0:
+                        callback(null);
+                    case 302:
+                        helpers.redirectTo(config.root);
+                        break;
+                    default:
+                        helpers.displayErrorPage(jqXHR);
+                }
+            })
+            .always(function() {
+                ajax.stopSpinner(spinnerBlock, spinnerEle);
+            });
+    },
+
+    /**
+     * Ajax call - ONLY for files.
+     *
+     * @param  string   url             URL to send ajax call
+     * @param  object   fileData        data(formData) that will be sent to the server(PHP)
+     * @param  function callback        Callback Function that will be called upon success or failure
+     *
+     */
+    upload: function(url, fileData, callback){
+
+        $.ajax({
+            url: config.root + url,
+            type: "POST",
+            data: helpers.appendCsrfToken(fileData),
+            dataType: "json",
+            beforeSend: function () {
+                // reset the progress bar
+                $(".progress .progress-bar").css("width", "0%").html("0%");
+            },
+            xhr: function() {
+                var myXhr = $.ajaxSettings.xhr();
+                // check if upload property exists
+                if(myXhr.upload){
+                    myXhr.upload.addEventListener('progress', ajax.progressbar, false);
+                    $(".progress").removeClass("display-none");
+                }
+                return myXhr;
+            },
+            contentType: false,
+            cache: false,
+            processData:false
+        })
+            .done(function(data) {
+                callback(data);
+            })
+            .fail(function(jqXHR) {
+                switch (jqXHR.status){
+                    case 0:
+                        callback(null);
+                    case 302:
+                        helpers.redirectTo(config.root);
+                        break;
+                    default:
+                        helpers.displayErrorPage(jqXHR);
+                }
+            })
+            .always(function() {
+                $(".progress").addClass("display-none");
+            });
+    },
+    progressbar: function(e){
+        if(e.lengthComputable){
+            var meter = parseInt((e.loaded/e.total) * 100);
+            $(".progress .progress-bar").css("width", meter+"%").html(meter + "%");
+        }
+    },
+    runSpinner: function(spinnerBlock, spinnerEle){
+
+        if(!helpers.empty(spinnerBlock)) {
+            // var spinner = $(spinnerBlock).nextAll(".spinner:eq(0)");
+            $(spinnerEle).show();
+            $(spinnerBlock).css("opacity","0.6");
+        }
+    },
+    stopSpinner: function(spinnerBlock, spinnerEle){
+        if(!helpers.empty(spinnerBlock) ) {
+            // var spinner = $(spinnerBlock).nextAll(".spinner:eq(0)");
+            $(spinnerEle).remove();
+            $(spinnerBlock).css("opacity","1");
+        }
+    }
+};
+var helpers = {
+
+    /**
+     * append csrf token to data that will be sent in ajax
+     *
+     * @param  mixed  data
+     *
+     */
+    appendCsrfToken: function (data){
+
+        if(typeof (data) === "string"){
+            if(data.length > 0){
+                data = data + "&csrf_token=" + config.csrfToken;
+            }else{
+                data = data + "csrf_token=" + config.csrfToken;
+            }
+        }
+
+        else if(data.constructor.name === "FormData"){
+            data.append("csrf_token", config.csrfToken);
+        }
+
+        else if(typeof(data) === "object"){
+            data.csrf_token = config.csrfToken;
+        }
+
+        return data;
+    },
+
+    /**
+     * replaces the current page with error page returned from ajax
+     *
+     * @param  XMLHttpRequest  jqXHR
+     * @see http://stackoverflow.com/questions/4387688/replace-current-page-with-ajax-content
+     */
+    displayErrorPage: function (jqXHR) {
+        document.open();
+        document.write(jqXHR.responseText);
+        document.close();
+    },
+
+    /**
+     * Extract keys from JavaScript object to be used as variables
+     * @param  object  data
+     */
+    extract: function (data) {
+        for (var key in data) {
+            window[key] = data[key];
+        }
+    },
+
+    /**
+     * Checks if an element is empty(set to null or undefined)
+     *
+     * @param  mixed foo
+     * @return boolean
+     *
+     */
+    empty: function (foo){
+        return (foo === null || typeof(foo) === "undefined")? true: false;
+    },
+
+    /**
+     * extends $().html() in jQuery
+     *
+     * @param   string  target
+     * @param   string  str
+     */
+    html: function (target, str){
+        $(target).html(str);
+    },
+
+    /**
+     * extends $().after() in jQuery
+     *
+     * @param   string  target
+     * @param   string  str
+     */
+    after: function (target, str){
+        $(target).after(str);
+    },
+
+    /**
+     * clears all error and success messages
+     *
+     * @param   string  target
+     */
+    clearMessages: function (target){
+
+        if(helpers.empty(target)){
+            $(".error").remove();
+            $(".success").remove();
+        } else{
+            // $(target).next(".error").remove();
+            // $(target).next(".success").remove();
+            $(target).nextAll(".error:eq(0)").remove();
+            $(target).nextAll(".success:eq(0)").remove();
+        }
+    },
+
+    /**
+     * Extend the serialize() function in jQuery.
+     * This function is designed to add extra data(name => value) to the form.
+     *
+     * @param   object  ele     Form element
+     * @param   string  str     String to be appended to the form data.
+     * @return  string          The serialized form data in form of: "name=value&name=value"
+     *
+     */
+    serialize: function (ele, str){
+        if(helpers.empty(str)){
+            return $(ele).serialize();
+        } else {
+            return $(ele).serialize()  + "&" + str;
+        }
+    },
+
+    /**
+     * This function is used to redirect.
+     *
+     * @param string location
+     */
+    redirectTo: function (location){
+        window.location.href = location;
+    },
+
+    /**
+     * encode potential text
+     * All encoding are done and must be done on the server side,
+     * but you can use this function in case it's needed on client.
+     *
+     * @param string  str
+     */
+    encodeHTML: function (str){
+        return $('<div />').text(str).html();
+    },
+
+    /**
+     * validate form file size
+     * It's important to validate file size on client-side to avoid overflow in $_POST & $_FILES
+     *
+     * @param   string form  form element
+     * @param   string id    id of the file input element
+     * @see     app/core/Request/dataSizeOverflow()
+     */
+    validateFileSize: function (fileId){
+
+        var size = document.getElementById(fileId).files[0].size;
+        return size < config.fileSizeOverflow;
+    },
+
+    /**
+     * display error message
+     *
+     * @param  string  targetBlock  The target block where the error or success alerts will be inserted
+     * @param  string  message      error message
+     *
+     */
+    displayError: function (targetBlock, message){
+
+        // 1. clear
+        helpers.clearMessages(targetBlock);
+
+        // 2. display
+        var alert    = $("<div>").addClass("alert alert-danger");
+        var notation = $("<i>").addClass("fa fa-exclamation-circle");
+        alert.append(notation);
+
+        message =  helpers.empty(message)? "Sorry there was a problem": message;
+        alert.append(" " + message);
+
+        var error = $("<div>").addClass("error").html(alert);
+        $(targetBlock).after(error);
+    },
+
+    /**
+     * Validate the data coming from server side(PHP)
+     *
+     * The data coming from PHP should be something like this:
+     *      data = [error = "some html code", success = "some html code", data = "some html code", redirect = "link"];
+     *
+     * @param   object   result        The Data that was sent from the server(PHP)
+     * @param   string   targetBlock    The target block where the error or success alerts(if exists) will be inserted inside/after it
+     * @param   string   errorFunc      The function that will be used to display the error, Ex: html(), after(), ..etc.
+     * @param   string   errorType      specifies how the error will be displayed, default or as row
+     * @param   string   returnVal      the expected value returned from the server(regardless of errors and redirections), Ex: success, data, ..etc.
+     * @return  boolean
+     */
+    validateData: function (result, targetBlock, errorFunc, errorType, returnVal){
+
+        // 1. clear all existing error or success messages
+        helpers.clearMessages(targetBlock);
+
+        // 2. Define and extend jQuery functions required to display the error.
+        if(errorFunc === "html")        errorFunc = helpers.html;
+        else if(errorFunc === "after")  errorFunc = helpers.after;
+        else                            errorFunc = helpers.html;
+
+        // 3. check if result is empty
+        if(helpers.empty(result)){
+            helpers.displayError(targetBlock);
+            return false;
+        }
+
+        // If there was a redirection
+        else if(!helpers.empty(result.redirect)){
+            helpers.redirectTo(result.redirect);
+            return false;
+        }
+
+        // If there was errors encountered and sent from the server, then display it
+        else if(!helpers.empty(result.error)){
+
+            if(errorType === "default" || helpers.empty(errorType)){
+                errorFunc(targetBlock, result.error);
+            } else if(errorType === "row"){
+                var td = $("<td>").attr("colspan", "5");
+                errorFunc(targetBlock, $(td).html(result.error));
+            }
+
+            return false;
+        }
+
+        else{
+
+            if(returnVal === "success" && helpers.empty(result.success)){
+                helpers.displayError(targetBlock);
+                return false;
+            } else if(returnVal === "data" && helpers.empty(result.data)){
+                helpers.displayError(targetBlock);
+                return false;
+            } else if(returnVal !== "data" && returnVal !== "success"){
+                helpers.displayError(targetBlock);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+};
+      var app = {
+          init: function (){
+            if(!helpers.empty(config.curPage)){
+                if(config.curPage.constructor === Array){
+
+                    config.curPage.forEach(function(sub) {
+
+                    // add 'active' class to current navigation list
+                    $(".navbar-nav li ."+ sub).addClass("active");
+                    //events[sub].init();
+                });
+
+            } else {
+                    $(".navbar-nav li ."+ config.curPage).addClass("active");
+                    if(!helpers.empty(events[config.curPage])){
+                        events[config.curPage].init();
+                    }
+                   }
+            }
+          }
+      };
+      var events = {
+        login:{
+          init: function(){
+              events.login.tabs();
+          },
+          tabs: function(){
+              $("#form-login #link-forgot-password, #form-forgot-password #link-login").click(function() {
+
+                  $("#form-login, #form-forgot-password" ).toggleClass("display-none");
+                  $(".error, .success").remove();
+              });
+
+              $("#link-register").click(function() {
+
+                  $("#form-login, #form-forgot-password").addClass("display-none");
+                  $("#form-register").removeClass("display-none");
+                  $(".panel-title").text("Register");
+                  $(".error, .success").remove();
+              });
+
+              $("#form-register #link-login").click(function() {
+
+                  $(".panel-title").text("Login");
+                  $("#form-register").addClass("display-none");
+                  $("#form-login").removeClass("display-none");
+                  $(".error, .success").remove();
+              });
+          }
+        },
+    voucher:{
+        init: function(){
+            $("#form_datetime-1").datetimepicker({
+                format: 'DD/MM/YYYY',
+                defaultDate: new Date()
+            });    
+            $("#form_datetime-2").datetimepicker({
+                format: 'DD/MM/YYYY',
+                defaultDate: new Date()
+            });                     
+        }
+    },    
+    newsfeed:{
+        init: function(){
+            events.newsfeed.update();
+            events.newsfeed.delete();
+        },
+        reInit: function(){
+
+            // It's important to have the update & delete events encapsulated inside a function,
+            // so you can call the function after ajax calls to re-initialize them
+            events.newsfeed.update();
+            events.newsfeed.delete();
+        },
+        update: function(){
+            $("#list-newsfeed .header .edit").off('click').on('click',function(){
+                var newsfeedBody = $(this).parent().parent().parent().parent();
+                var newsfeedId   = newsfeedBody.attr("id");
+                console.log(newsfeedId);
+                getNewsFeedUpdateForm();
+
+                // 1. get the update form merged with the current newsfeed data
+                function getNewsFeedUpdateForm(){
+                    ajax.send("newsFeed/getUpdateForm", {newsfeed_id: newsfeedId}, getNewsFeedUpdateFormCallBack);
+
+                    function getNewsFeedUpdateFormCallBack(result){
+                        if(helpers.validateData(result, newsfeedBody, "html", "default", "data")){
+                            newsfeedBody.html(result.data);
+                            activateCancelNewsFeedEvent();
+                            activateUpdateNewsFeedEvent();
+                        }
+                    }
+                }
+
+                // 2. if cancel, then go and get the current newsfeed(regardless of any changes)
+                function activateCancelNewsFeedEvent(){
+
+                    $("#form-update-feed-"+newsfeedId+" button[name='cancel']").click(function(e){
+                        e.preventDefault();
+                        ajax.send("NewsFeed/getById", {newsfeed_id: newsfeedId}, getNewsFeedByIdCallBack);
+
+                        function getNewsFeedByIdCallBack(result){
+                            if(helpers.validateData(result, newsfeedBody, "html", "default", "data")){
+                                $(newsfeedBody).after(result.data);
+                                $(newsfeedBody).remove();
+                                events.newsfeed.reInit();
+                            }
+                        }
+                    });
+                }
+
+                // 3. if update, then update the current newsfeed and get back the updated one
+                function activateUpdateNewsFeedEvent(){
+
+                    $("#form-update-"+newsfeedId).submit(function(e){
+                        e.preventDefault();
+                        ajax.send("newsFeed/update", helpers.serialize("#form-update-feed"+newsfeedId, "newsfeed_id="+newsfeedId), updateNewsFeedCallBack);
+
+                        function updateNewsFeedCallBack(result){
+                            if(helpers.validateData(result, newsfeedBody, "after", "default", "data")){
+                                $(newsfeedBody).after(result.data);
+                                $(newsfeedBody).remove();
+                                events.newsfeed.reInit();
+                            }
+                        }
+                    });
+                }
+            });
+        },
+        delete: function(){
+          $("#list-newsfeed .header .delete").off('click').on('click', function(e) {
+              e.preventDefault();
+              if (!confirm("Are you sure?")) { return; }
+
+              var newsfeedBody = $(this).parent().parent().parent().parent();
+              var newsfeedId   = newsfeedBody.attr("id");
+
+              ajax.send("newsFeed/delete", {newsfeed_id: newsfeedId}, deleteNewsFeedCallBack);
+              function deleteNewsFeedCallBack(result){
+                if(helpers.validateData(result, newsfeedBody, "html", "default", "success")){
+                    $(newsfeedBody).remove();
+                }
+              }
+          });
+        }
+    },
+    users: {
+        init: function(){
+            events.users.search();
+            events.users.update();
+            events.users.delete();
+        },
+        reInit: function(){
+            events.users.delete();
+        },
+        get: function(pageNumber){
+
+            if(helpers.empty(pageNumber)) pageNumber = 1;
+
+            var name    = $("#form-search-users input[name='name']").val();
+            var email   = $("#form-search-users input[name='email']").val();
+            var role    = $("#form-search-users select[name='role']").val();
+
+            ajax.send("Admin/getUsers", {name: name, email: email, role: role, page: pageNumber},
+                events.users.get_search_callback, "#list-users");
+        },
+        search: function(){
+
+            $("#form-search-users").submit(function(e){
+                e.preventDefault();
+                ajax.send("Admin/getUsers", helpers.serialize(this, "page=1"), events.users.get_search_callback, "#list-users");
+            });
+        },
+        get_search_callback: function(result){
+            if(helpers.validateData(result, "#form-search-users", "after", "default", "data")){
+                $("#list-users tbody").html(result.data.users);
+                events.users.reInit();
+
+                $("ul.pagination").html(result.data.pagination);
+                //events.pagination.init();
+            }else{
+                $("ul.pagination").html("");
+            }
+        },
+        update: function(){
+
+            $("#form-update-user-info").submit(function(e){
+                e.preventDefault();
+                ajax.send("Admin/updateUserInfo", helpers.serialize(this, "user_id="+config.userId), updateUserInfoCallBack, "#form-update-user-info");
+            });
+
+            function updateUserInfoCallBack(result){
+                if(helpers.validateData(result, "#form-update-user-info", "after", "default", "success")){
+                    $("#form-update-user-info").after(result.success);
+                }
+            }
+
+        },
+        delete: function(){
+
+            $("#list-users tr td .delete").click(function(e){
+                e.preventDefault();
+                if (!confirm("Are you sure?")) { return; }
+
+                var row     = $(this).parent().parent().parent();
+                var userId  = row.attr("id");
+
+                ajax.send("Admin/deleteUser", {user_id: userId}, deleteUserCallBack);
+                function deleteUserCallBack(result){
+                    if(helpers.validateData(result, row, "after", "row", "success")){
+                        $(row).remove();
+                    }
+                }
+            });
+        }
+    },
+      };
+        app.init();
+      });
+    </script>
+</body>
+</html>
